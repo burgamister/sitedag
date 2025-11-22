@@ -1,4 +1,3 @@
-import logoFull from "@/assets/logo-full.png";
 import logoIcon from "@/assets/logo-icon.png";
 import { Button } from "@/components/ui/button";
 
@@ -16,7 +15,7 @@ const Header = () => {
         <div className="flex items-center justify-between h-20">
           {/* Left Logo */}
           <div className="flex-shrink-0">
-            <img src={logoFull} alt="DagEnglish" className="h-12 w-auto" />
+            <img src={logoIcon} alt="DagEnglish" className="h-12 w-auto" />
           </div>
 
           {/* Center Navigation */}
