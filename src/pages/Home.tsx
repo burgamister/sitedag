@@ -2,7 +2,7 @@ import Header from "@/components/Header";
 import logoFull from "@/assets/logo-full.png";
 const Home = () => {
   return <div className="min-h-screen bg-background">
-      <Header className="rounded-md" />
+      <Header />
       
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
