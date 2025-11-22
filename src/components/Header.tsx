@@ -1,6 +1,17 @@
 import logoIcon from "@/assets/logo-icon.png";
 import { Button } from "@/components/ui/button";
+import { useState, useEffect } from "react";
+
 const Header = () => {
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
   const navItems = [{
     label: "ПРОЕКТЫ",
     href: "#projects"
@@ -14,7 +25,7 @@ const Header = () => {
     label: "КОНТАКТЫ",
     href: "#contacts"
   }];
-  return <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/50">
+  return <header className={`fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md transition-all duration-300 ${isScrolled ? 'border-b border-border/50' : ''}`}>
       <div className="container mx-auto px-6 rounded-none">
         <div className="flex items-center justify-between h-20 rounded-none">
           {/* Left Logo */}
