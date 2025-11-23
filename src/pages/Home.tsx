@@ -1,4 +1,5 @@
 import Header from "@/components/Header";
+import Map from "@/components/Map";
 import logoFull from "@/assets/logo-full.png";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -35,7 +36,7 @@ const Home = () => {
 
       {/* Contacts Section */}
       <section id="contacts" className="relative py-20 px-6 bg-background">
-        <div className="container mx-auto max-w-6xl">
+        <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-16 animate-fade-in">
             <h2 className="font-montserrat text-4xl md:text-5xl font-bold text-foreground mb-4">
               КОНТАКТЫ
@@ -45,113 +46,115 @@ const Home = () => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-12 items-start">
-            {/* Contact Information */}
-            <div className="space-y-8 animate-fade-in">
-              <div className="flex items-start gap-4 group">
-                <div className="p-3 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors">
-                  <Mail className="w-6 h-6 text-primary" />
-                </div>
-                <div>
-                  <h3 className="font-montserrat font-semibold text-foreground mb-1">Email</h3>
-                  <a href="mailto:info@dagenglish.com" className="text-foreground/70 hover:text-primary transition-colors">
-                    info@dagenglish.com
-                  </a>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4 group">
-                <div className="p-3 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors">
-                  <Phone className="w-6 h-6 text-primary" />
-                </div>
-                <div>
-                  <h3 className="font-montserrat font-semibold text-foreground mb-1">Телефон</h3>
-                  <a href="tel:+79999999999" className="text-foreground/70 hover:text-primary transition-colors">
-                    +7 (999) 999-99-99
-                  </a>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4 group">
-                <div className="p-3 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors">
-                  <MapPin className="w-6 h-6 text-primary" />
-                </div>
-                <div>
-                  <h3 className="font-montserrat font-semibold text-foreground mb-1">Адрес</h3>
-                  <p className="text-foreground/70">
-                    Махачкала, Дагестан
-                  </p>
-                </div>
-              </div>
-
-              <div className="mt-12 p-6 bg-accent/20 rounded-lg border border-accent/30">
-                <h3 className="font-montserrat font-semibold text-foreground mb-2">Часы работы</h3>
-                <p className="text-foreground/70 text-sm">
-                  Понедельник - Пятница: 9:00 - 20:00<br />
-                  Суббота: 10:00 - 18:00<br />
-                  Воскресенье: Выходной
-                </p>
+          <div className="grid lg:grid-cols-[1fr,1fr] gap-12">
+            {/* Left Side - Map */}
+            <div className="animate-fade-in order-2 lg:order-1">
+              <div className="sticky top-24 rounded-lg overflow-hidden border border-border shadow-lg">
+                <Map />
               </div>
             </div>
 
-            {/* Contact Form */}
-            <div className="bg-card p-8 rounded-lg border border-border shadow-lg animate-fade-in">
-              <h3 className="font-montserrat text-2xl font-semibold text-foreground mb-6">
-                Напишите нам
-              </h3>
-              <form className="space-y-6">
-                <div>
-                  <label htmlFor="name" className="block font-montserrat text-sm font-medium text-foreground mb-2">
-                    Имя
-                  </label>
-                  <Input
-                    id="name"
-                    type="text"
-                    placeholder="Ваше имя"
-                    className="w-full"
-                  />
+            {/* Right Side - Contact Info & Form */}
+            <div className="space-y-12 order-1 lg:order-2">
+              {/* Contact Information */}
+              <div className="space-y-6 animate-fade-in">
+                <div className="flex items-start gap-4 group">
+                  <div className="p-3 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors">
+                    <MapPin className="w-6 h-6 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-montserrat font-semibold text-foreground mb-1">Адрес</h3>
+                    <p className="text-foreground/70">
+                      367000, Россия, Махачкала,<br />
+                      Улица Дахадаева 23А
+                    </p>
+                  </div>
                 </div>
 
-                <div>
-                  <label htmlFor="email" className="block font-montserrat text-sm font-medium text-foreground mb-2">
-                    Email
-                  </label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="your@email.com"
-                    className="w-full"
-                  />
+                <div className="flex items-start gap-4 group">
+                  <div className="p-3 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors">
+                    <Mail className="w-6 h-6 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-montserrat font-semibold text-foreground mb-1">Email</h3>
+                    <a href="mailto:info@dagenglish.com" className="text-foreground/70 hover:text-primary transition-colors">
+                      info@dagenglish.com
+                    </a>
+                  </div>
                 </div>
 
-                <div>
-                  <label htmlFor="phone" className="block font-montserrat text-sm font-medium text-foreground mb-2">
-                    Телефон
-                  </label>
-                  <Input
-                    id="phone"
-                    type="tel"
-                    placeholder="+7 (999) 999-99-99"
-                    className="w-full"
-                  />
+                <div className="flex items-start gap-4 group">
+                  <div className="p-3 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors">
+                    <Phone className="w-6 h-6 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-montserrat font-semibold text-foreground mb-1">Телефон</h3>
+                    <a href="tel:+79288699696" className="text-foreground/70 hover:text-primary transition-colors">
+                      7 (928) 869-96-96
+                    </a>
+                  </div>
                 </div>
+              </div>
 
-                <div>
-                  <label htmlFor="message" className="block font-montserrat text-sm font-medium text-foreground mb-2">
-                    Сообщение
-                  </label>
-                  <Textarea
-                    id="message"
-                    placeholder="Расскажите о ваших целях изучения английского..."
-                    rows={5}
-                    className="w-full resize-none"
-                  />
-                </div>
+              {/* Contact Form */}
+              <div className="bg-card p-8 rounded-lg border border-border shadow-lg animate-fade-in">
+                <h3 className="font-montserrat text-2xl font-semibold text-foreground mb-6">
+                  Напишите нам
+                </h3>
+                <form className="space-y-6">
+                  <div>
+                    <label htmlFor="name" className="block font-montserrat text-sm font-medium text-foreground mb-2">
+                      Имя
+                    </label>
+                    <Input
+                      id="name"
+                      type="text"
+                      placeholder="Ваше имя"
+                      className="w-full"
+                    />
+                  </div>
 
-                <Button type="submit" className="w-full font-montserrat font-semibold">
-                  Отправить сообщение
-                </Button>
-              </form>
+                  <div>
+                    <label htmlFor="email" className="block font-montserrat text-sm font-medium text-foreground mb-2">
+                      Email
+                    </label>
+                    <Input
+                      id="email"
+                      type="email"
+                      placeholder="your@email.com"
+                      className="w-full"
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="phone" className="block font-montserrat text-sm font-medium text-foreground mb-2">
+                      Телефон
+                    </label>
+                    <Input
+                      id="phone"
+                      type="tel"
+                      placeholder="+7 (999) 999-99-99"
+                      className="w-full"
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="message" className="block font-montserrat text-sm font-medium text-foreground mb-2">
+                      Сообщение
+                    </label>
+                    <Textarea
+                      id="message"
+                      placeholder="Расскажите о ваших целях изучения английского..."
+                      rows={5}
+                      className="w-full resize-none"
+                    />
+                  </div>
+
+                  <Button type="submit" className="w-full font-montserrat font-semibold">
+                    Отправить сообщение
+                  </Button>
+                </form>
+              </div>
             </div>
           </div>
         </div>
