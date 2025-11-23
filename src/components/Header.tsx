@@ -16,7 +16,7 @@ const Header = () => {
     label: "ПРОЕКТЫ",
     href: "#projects"
   }, {
-    label: "ПРО БЮРО",
+    label: "МЫ",
     href: "#about"
   }, {
     label: "НОВОСТИ",
