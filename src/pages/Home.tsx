@@ -1,8 +1,57 @@
 import Header from "@/components/Header";
-import Map from "@/components/Map";
+import Footer from "@/components/Footer";
 import logoFull from "@/assets/logo-full.png";
-import { Mail, Phone, MapPin, Instagram, Send, MessageCircle } from "lucide-react";
+import { Instagram, Send, MessageCircle } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/hooks/use-toast";
+import { useState } from "react";
+import { z } from "zod";
+
+const contactSchema = z.object({
+  name: z.string().trim().min(1, "Имя обязательно").max(100, "Имя должно быть меньше 100 символов"),
+  email: z.string().trim().email("Неверный формат email").max(255, "Email должен быть меньше 255 символов"),
+  message: z.string().trim().min(1, "Сообщение обязательно").max(1000, "Сообщение должно быть меньше 1000 символов")
+});
 const Home = () => {
+  const { toast } = useToast();
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setErrors({});
+    
+    try {
+      contactSchema.parse(formData);
+      setIsSubmitting(true);
+      
+      // Simulate form submission
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      toast({
+        title: "Сообщение отправлено!",
+        description: "Мы свяжемся с вами в ближайшее время.",
+      });
+      
+      setFormData({ name: "", email: "", message: "" });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        const fieldErrors: Record<string, string> = {};
+        error.errors.forEach((err) => {
+          if (err.path[0]) {
+            fieldErrors[err.path[0].toString()] = err.message;
+          }
+        });
+        setErrors(fieldErrors);
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return <div className="min-h-screen bg-background">
       <Header />
       
@@ -114,121 +163,109 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Contacts Section */}
+      {/* Contact Section */}
       <section id="contacts" className="relative py-20 px-6 bg-background">
-        <div className="container mx-auto max-w-7xl">
-          <div className="text-center mb-16 animate-fade-in">
-            <h2 className="font-montserrat text-4xl md:text-5xl font-semibold text-foreground mb-4">
-              КОНТАКТЫ
+        <div className="container mx-auto max-w-2xl">
+          <div className="text-center mb-12 animate-fade-in">
+            <h2 className="font-montserrat text-4xl md:text-5xl font-semibold text-foreground mb-4 inline-block relative pb-3">
+              СВЯЗАТЬСЯ
+              <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-16 h-1 bg-foreground"></span>
             </h2>
-            <p className="font-montserrat text-foreground/70 text-lg max-w-2xl mx-auto">
-              Свяжитесь с нами, и мы поможем начать ваш путь к английскому языку
+            <p className="font-montserrat text-foreground/70 text-lg mt-6">
+              Заполните форму, и мы поможем начать ваш путь к английскому языку
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-[1fr,1fr] gap-12">
-            {/* Left Side - Map */}
-            <div className="animate-fade-in order-2 lg:order-1">
-              <div className="sticky top-24 rounded-lg overflow-hidden border border-border shadow-lg">
-                <Map />
-              </div>
+          {/* Contact Form */}
+          <form onSubmit={handleSubmit} className="space-y-6 animate-fade-in">
+            <div>
+              <Input
+                type="text"
+                placeholder="Ваше имя"
+                value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                className={errors.name ? "border-red-500" : ""}
+              />
+              {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
             </div>
 
-            {/* Right Side - Contact Info */}
-            <div className="space-y-8 order-1 lg:order-2">
-              {/* Contact Information */}
-              <div className="space-y-6 animate-fade-in">
-                <div className="flex items-start gap-4 group">
-                  <div className="p-3 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors">
-                    <MapPin className="w-6 h-6 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="font-montserrat font-semibold text-foreground mb-1">Адрес</h3>
-                    <p className="text-foreground/70">
-                      367000, Россия, Махачкала,<br />
-                      Улица Дахадаева 23А
-                    </p>
-                  </div>
-                </div>
+            <div>
+              <Input
+                type="email"
+                placeholder="Ваш email"
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                className={errors.email ? "border-red-500" : ""}
+              />
+              {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+            </div>
 
-                <div className="flex items-start gap-4 group">
-                  <div className="p-3 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors">
-                    <Mail className="w-6 h-6 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="font-montserrat font-semibold text-foreground mb-1">Email</h3>
-                    <a href="mailto:info@dagenglish.com" className="text-foreground/70 hover:text-primary transition-colors">
-                      info@dagenglish.com
-                    </a>
-                  </div>
-                </div>
+            <div>
+              <Textarea
+                placeholder="Ваше сообщение"
+                value={formData.message}
+                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                className={`min-h-[150px] ${errors.message ? "border-red-500" : ""}`}
+              />
+              {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
+            </div>
 
-                <div className="flex items-start gap-4 group">
-                  <div className="p-3 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors">
-                    <Phone className="w-6 h-6 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="font-montserrat font-semibold text-foreground mb-1">Телефон</h3>
-                    <a href="tel:+79288699696" className="text-foreground/70 hover:text-primary transition-colors">
-                      7 (928) 869-96-96
-                    </a>
-                  </div>
-                </div>
-              </div>
+            <Button 
+              type="submit" 
+              className="w-full"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Отправка..." : "Отправить"}
+            </Button>
+          </form>
 
-              {/* Social Media */}
-              <div className="bg-card p-8 rounded-lg border border-border shadow-lg animate-fade-in">
-                <h3 className="font-montserrat text-2xl font-semibold text-foreground mb-6">
-                  Мы в социальных сетях
-                </h3>
-                <div className="grid grid-cols-2 gap-4">
-                  <a
-                    href="https://instagram.com/dagenglish"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-3 p-4 bg-accent/10 hover:bg-accent/20 rounded-lg transition-all hover:scale-105 group"
-                  >
-                    <Instagram className="w-6 h-6 text-primary group-hover:text-primary/80" />
-                    <span className="font-montserrat font-medium text-foreground">Instagram</span>
-                  </a>
+          {/* Social Media Alternative */}
+          <div className="mt-12 text-center animate-fade-in">
+            <p className="text-foreground/50 text-sm mb-4">или ты, напиши нам</p>
+            <div className="flex items-center justify-center gap-4">
+              <a
+                href="https://instagram.com/dagenglish"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 hover:scale-110 transition-transform"
+              >
+                <Instagram className="w-6 h-6 text-foreground/60 hover:text-primary" />
+              </a>
 
-                  <a
-                    href="https://t.me/dagenglish"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-3 p-4 bg-accent/10 hover:bg-accent/20 rounded-lg transition-all hover:scale-105 group"
-                  >
-                    <Send className="w-6 h-6 text-primary group-hover:text-primary/80" />
-                    <span className="font-montserrat font-medium text-foreground">Telegram</span>
-                  </a>
+              <a
+                href="https://t.me/dagenglish"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 hover:scale-110 transition-transform"
+              >
+                <Send className="w-6 h-6 text-foreground/60 hover:text-primary" />
+              </a>
 
-                  <a
-                    href="https://wa.me/79288699696"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-3 p-4 bg-accent/10 hover:bg-accent/20 rounded-lg transition-all hover:scale-105 group"
-                  >
-                    <MessageCircle className="w-6 h-6 text-primary group-hover:text-primary/80" />
-                    <span className="font-montserrat font-medium text-foreground">WhatsApp</span>
-                  </a>
+              <a
+                href="https://wa.me/79288699696"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 hover:scale-110 transition-transform"
+              >
+                <MessageCircle className="w-6 h-6 text-foreground/60 hover:text-primary" />
+              </a>
 
-                  <a
-                    href="https://vk.com/dagenglish"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-3 p-4 bg-accent/10 hover:bg-accent/20 rounded-lg transition-all hover:scale-105 group"
-                  >
-                    <svg className="w-6 h-6 text-primary group-hover:text-primary/80" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.408 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.864-.525-2.05-1.727-1.033-1-1.49-1.135-1.744-1.135-.356 0-.458.102-.458.593v1.575c0 .424-.135.678-1.253.678-1.846 0-3.896-1.118-5.335-3.202C4.624 10.857 4.03 8.57 4.03 8.096c0-.254.102-.491.593-.491h1.744c.44 0 .61.203.78.677.863 2.49 2.303 4.675 2.896 4.675.22 0 .322-.102.322-.66V9.721c-.068-1.186-.695-1.287-.695-1.71 0-.204.17-.407.44-.407h2.744c.373 0 .508.203.508.643v3.473c0 .372.17.508.271.508.22 0 .407-.136.813-.542 1.254-1.406 2.151-3.574 2.151-3.574.119-.254.322-.491.763-.491h1.744c.525 0 .644.27.525.643-.22 1.017-2.354 4.031-2.354 4.031-.186.305-.254.44 0 .779.186.254.796.779 1.203 1.253.745.847 1.32 1.558 1.473 2.05.17.492-.085.744-.576.744z"/>
-                    </svg>
-                    <span className="font-montserrat font-medium text-foreground">VKontakte</span>
-                  </a>
-                </div>
-              </div>
+              <a
+                href="https://vk.com/dagenglish"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 hover:scale-110 transition-transform"
+              >
+                <svg className="w-6 h-6 text-foreground/60 hover:text-primary" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.408 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.864-.525-2.05-1.727-1.033-1-1.49-1.135-1.744-1.135-.356 0-.458.102-.458.593v1.575c0 .424-.135.678-1.253.678-1.846 0-3.896-1.118-5.335-3.202C4.624 10.857 4.03 8.57 4.03 8.096c0-.254.102-.491.593-.491h1.744c.44 0 .61.203.78.677.863 2.49 2.303 4.675 2.896 4.675.22 0 .322-.102.322-.66V9.721c-.068-1.186-.695-1.287-.695-1.71 0-.204.17-.407.44-.407h2.744c.373 0 .508.203.508.643v3.473c0 .372.17.508.271.508.22 0 .407-.136.813-.542 1.254-1.406 2.151-3.574 2.151-3.574.119-.254.322-.491.763-.491h1.744c.525 0 .644.27.525.643-.22 1.017-2.354 4.031-2.354 4.031-.186.305-.254.44 0 .779.186.254.796.779 1.203 1.253.745.847 1.32 1.558 1.473 2.05.17.492-.085.744-.576.744z"/>
+                </svg>
+              </a>
             </div>
           </div>
         </div>
       </section>
+
+      <Footer />
     </div>;
 };
 export default Home;
