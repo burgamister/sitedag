@@ -8,13 +8,13 @@ const Home = () => {
       
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
-        {/* Mountain SVG Background */}
+        {/* Sharp Mountain SVG Background */}
         <div className="absolute bottom-0 left-0 right-0 pointer-events-none">
           <svg viewBox="0 0 1440 320" className="w-full h-auto text-accent/20" preserveAspectRatio="none">
-            <path fill="currentColor" d="M0,128L48,138.7C96,149,192,171,288,165.3C384,160,480,128,576,122.7C672,117,768,139,864,154.7C960,171,1056,181,1152,165.3C1248,149,1344,107,1392,85.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z" />
+            <path fill="currentColor" d="M0,320L240,280L360,160L480,200L600,120L720,180L840,100L960,140L1080,80L1200,160L1320,120L1440,180L1440,320L0,320Z" />
           </svg>
           <svg viewBox="0 0 1440 320" className="absolute bottom-0 w-full h-auto text-accent/10" preserveAspectRatio="none">
-            <path fill="currentColor" d="M0,192L48,197.3C96,203,192,213,288,197.3C384,181,480,139,576,138.7C672,139,768,181,864,186.7C960,192,1056,160,1152,138.7C1248,117,1344,107,1392,101.3L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z" />
+            <path fill="currentColor" d="M0,320L200,260L320,140L480,220L640,100L800,160L960,80L1120,180L1280,120L1440,200L1440,320L0,320Z" />
           </svg>
         </div>
 
@@ -35,9 +35,9 @@ const Home = () => {
       <section id="about" className="relative py-20 px-6 bg-background">
         <div className="container mx-auto max-w-4xl">
           <div className="text-center mb-12 animate-fade-in">
-            <h2 className="font-montserrat text-4xl md:text-5xl font-bold text-foreground mb-2 inline-block relative">
+            <h2 className="font-montserrat text-4xl md:text-5xl font-semibold text-foreground mb-2 inline-block relative pb-3">
               О НАС
-              <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-16 h-1 bg-foreground"></span>
+              <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-16 h-1 bg-foreground"></span>
             </h2>
           </div>
           
@@ -57,9 +57,9 @@ const Home = () => {
       <section id="prices" className="relative py-20 px-6 bg-background">
         <div className="container mx-auto max-w-4xl">
           <div className="text-center mb-12 animate-fade-in">
-            <h2 className="font-montserrat text-4xl md:text-5xl font-bold text-foreground mb-4 inline-block relative">
+            <h2 className="font-montserrat text-4xl md:text-5xl font-semibold text-foreground mb-4 inline-block relative pb-3">
               ЦЕНЫ
-              <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-16 h-1 bg-foreground"></span>
+              <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-16 h-1 bg-foreground"></span>
             </h2>
             <p className="font-montserrat text-foreground/70 text-lg mt-6">
               Выберите подходящий для вас формат обучения
@@ -118,7 +118,7 @@ const Home = () => {
       <section id="contacts" className="relative py-20 px-6 bg-background">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-16 animate-fade-in">
-            <h2 className="font-montserrat text-4xl md:text-5xl font-bold text-foreground mb-4">
+            <h2 className="font-montserrat text-4xl md:text-5xl font-semibold text-foreground mb-4">
               КОНТАКТЫ
             </h2>
             <p className="font-montserrat text-foreground/70 text-lg max-w-2xl mx-auto">
