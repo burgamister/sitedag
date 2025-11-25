@@ -23,10 +23,93 @@ const Home = () => {
           <img src={logoFull} alt="DagEnglish" className="w-auto h-32 md:h-48 lg:h-64" />
         </div>
 
-        {/* Scroll Indicator */}
+      {/* Scroll Indicator */}
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce z-20">
           <div className="w-6 h-10 border-2 border-foreground/30 rounded-full flex items-start justify-center p-2">
             <div className="w-1 h-3 bg-foreground/50 rounded-full"></div>
+          </div>
+        </div>
+      </section>
+
+      {/* About Us Section */}
+      <section id="about" className="relative py-20 px-6 bg-background">
+        <div className="container mx-auto max-w-4xl">
+          <div className="text-center mb-12 animate-fade-in">
+            <h2 className="font-montserrat text-4xl md:text-5xl font-bold text-foreground mb-2 inline-block relative">
+              О НАС
+              <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-16 h-1 bg-foreground"></span>
+            </h2>
+          </div>
+          
+          <div className="space-y-6 animate-fade-in">
+            <p className="font-montserrat text-foreground text-lg leading-relaxed">
+              Мы — школа английского языка, вдохновленная красотой и культурой Дагестана. Наша миссия — сделать изучение английского языка доступным и увлекательным для каждого, сочетая современные методики преподавания с уважением к традициям и особенностям нашего региона.
+            </p>
+            
+            <p className="font-montserrat text-foreground text-lg leading-relaxed">
+              Мы верим, что знание английского языка открывает новые горизонты и возможности. Наши опытные преподаватели помогут вам достичь ваших целей, будь то подготовка к экзаменам, улучшение разговорных навыков или изучение языка для профессионального роста.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Prices Section */}
+      <section id="prices" className="relative py-20 px-6 bg-background">
+        <div className="container mx-auto max-w-4xl">
+          <div className="text-center mb-12 animate-fade-in">
+            <h2 className="font-montserrat text-4xl md:text-5xl font-bold text-foreground mb-4 inline-block relative">
+              ЦЕНЫ
+              <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-16 h-1 bg-foreground"></span>
+            </h2>
+            <p className="font-montserrat text-foreground/70 text-lg mt-6">
+              Выберите подходящий для вас формат обучения
+            </p>
+          </div>
+          
+          <div className="space-y-8 animate-fade-in">
+            {/* Individual Lessons */}
+            <div className="border-b border-foreground/20 pb-8">
+              <div className="flex justify-between items-start gap-8">
+                <div className="flex-1">
+                  <h3 className="font-montserrat text-2xl font-bold text-foreground mb-3">
+                    ИНДИВИДУАЛЬНО
+                  </h3>
+                  <p className="font-montserrat text-foreground/70 text-base">
+                    Персональный подход, гибкий график, индивидуальная программа
+                  </p>
+                </div>
+                <div className="text-right">
+                  <div className="font-montserrat text-3xl font-bold text-foreground">
+                    1 200 ₽
+                  </div>
+                  <div className="font-montserrat text-sm text-foreground/60 mt-1">
+                    за занятие
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Group Lessons */}
+            <div className="border-b border-foreground/20 pb-8">
+              <div className="flex justify-between items-start gap-8">
+                <div className="flex-1">
+                  <h3 className="font-montserrat text-2xl font-bold text-foreground mb-3">
+                    С ГРУППОЙ
+                  </h3>
+                  <p className="font-montserrat text-foreground/70 text-base">
+                    3 занятия в неделю, группа до 6 человек, разговорный клуб
+                  </p>
+                </div>
+                <div className="text-right">
+                  <div className="font-montserrat text-3xl font-bold text-foreground">
+                    5 500 ₽
+                  </div>
+                  <div className="font-montserrat text-sm text-foreground/60 mt-1">
+                    в месяц
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
