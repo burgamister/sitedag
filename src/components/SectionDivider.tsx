@@ -1,77 +1,116 @@
 const SectionDivider = () => {
   return (
-    <div className="w-full py-8 overflow-hidden">
-      <div className="container mx-auto max-w-4xl px-6">
+    <div className="w-full py-6 overflow-hidden">
+      <div className="container mx-auto max-w-5xl px-6">
         {/* Top line */}
-        <div className="h-0.5 bg-foreground/40 rounded-full mb-4" />
+        <div className="h-0.5 bg-foreground/50" />
         
         {/* Decorative pattern */}
-        <div className="flex items-center justify-center gap-3 md:gap-6">
-          {/* Left chevrons */}
-          <div className="flex items-center gap-1">
-            <svg viewBox="0 0 20 24" className="w-4 h-6 text-foreground/60">
-              <path d="M2 2L18 12L2 22" stroke="currentColor" strokeWidth="2" fill="none" />
-            </svg>
-            <svg viewBox="0 0 20 24" className="w-4 h-6 text-foreground/60">
-              <path d="M2 2L18 12L2 22" stroke="currentColor" strokeWidth="2" fill="none" />
-            </svg>
-          </div>
-
-          {/* Mountain symbol */}
-          <svg viewBox="0 0 40 30" className="w-8 h-6 text-foreground/70">
-            <path d="M5 25L15 8L20 15L25 8L35 25" stroke="currentColor" strokeWidth="2" fill="none" />
-            <path d="M10 25L20 12L30 25" stroke="currentColor" strokeWidth="1.5" fill="none" opacity="0.5" />
+        <div className="flex items-center justify-center gap-2 md:gap-4 py-3">
+          {/* Triple chevrons right */}
+          <svg viewBox="0 0 30 20" className="w-6 h-4 text-foreground/70">
+            <path d="M2 2L10 10L2 18" stroke="currentColor" strokeWidth="2" fill="none" />
+            <path d="M10 2L18 10L10 18" stroke="currentColor" strokeWidth="2" fill="none" />
+            <path d="M18 2L26 10L18 18" stroke="currentColor" strokeWidth="2" fill="none" />
           </svg>
 
-          {/* Left arrows */}
-          <div className="flex items-center gap-0.5">
-            <svg viewBox="0 0 16 24" className="w-3 h-5 text-foreground/50">
-              <path d="M2 4L14 12L2 20" stroke="currentColor" strokeWidth="2" fill="none" />
-            </svg>
-            <svg viewBox="0 0 16 24" className="w-3 h-5 text-foreground/50">
-              <path d="M2 4L14 12L2 20" stroke="currentColor" strokeWidth="2" fill="none" />
-            </svg>
-          </div>
-
-          {/* Circle with pattern */}
-          <svg viewBox="0 0 40 40" className="w-10 h-10 text-foreground/70">
-            <circle cx="20" cy="20" r="18" stroke="currentColor" strokeWidth="2" fill="none" />
-            <circle cx="20" cy="20" r="12" stroke="currentColor" strokeWidth="1.5" fill="none" opacity="0.6" />
-            <line x1="20" y1="4" x2="20" y2="36" stroke="currentColor" strokeWidth="1" opacity="0.4" />
-            <line x1="4" y1="20" x2="36" y2="20" stroke="currentColor" strokeWidth="1" opacity="0.4" />
-            <line x1="8" y1="8" x2="32" y2="32" stroke="currentColor" strokeWidth="1" opacity="0.3" />
-            <line x1="32" y1="8" x2="8" y2="32" stroke="currentColor" strokeWidth="1" opacity="0.3" />
+          {/* Mountain */}
+          <svg viewBox="0 0 30 24" className="w-6 h-5 text-foreground/60">
+            <path d="M4 20L10 6L15 12L20 6L26 20" stroke="currentColor" strokeWidth="2" fill="none" />
           </svg>
 
-          {/* Right arrows */}
-          <div className="flex items-center gap-0.5">
-            <svg viewBox="0 0 16 24" className="w-3 h-5 text-foreground/50">
-              <path d="M14 4L2 12L14 20" stroke="currentColor" strokeWidth="2" fill="none" />
-            </svg>
-            <svg viewBox="0 0 16 24" className="w-3 h-5 text-foreground/50">
-              <path d="M14 4L2 12L14 20" stroke="currentColor" strokeWidth="2" fill="none" />
-            </svg>
-          </div>
-
-          {/* Mountain symbol */}
-          <svg viewBox="0 0 40 30" className="w-8 h-6 text-foreground/70">
-            <path d="M5 25L15 8L20 15L25 8L35 25" stroke="currentColor" strokeWidth="2" fill="none" />
-            <path d="M10 25L20 12L30 25" stroke="currentColor" strokeWidth="1.5" fill="none" opacity="0.5" />
+          {/* Triple chevrons left */}
+          <svg viewBox="0 0 30 20" className="w-6 h-4 text-foreground/70">
+            <path d="M28 2L20 10L28 18" stroke="currentColor" strokeWidth="2" fill="none" />
+            <path d="M20 2L12 10L20 18" stroke="currentColor" strokeWidth="2" fill="none" />
+            <path d="M12 2L4 10L12 18" stroke="currentColor" strokeWidth="2" fill="none" />
           </svg>
 
-          {/* Right chevrons */}
-          <div className="flex items-center gap-1">
-            <svg viewBox="0 0 20 24" className="w-4 h-6 text-foreground/60">
-              <path d="M18 2L2 12L18 22" stroke="currentColor" strokeWidth="2" fill="none" />
-            </svg>
-            <svg viewBox="0 0 20 24" className="w-4 h-6 text-foreground/60">
-              <path d="M18 2L2 12L18 22" stroke="currentColor" strokeWidth="2" fill="none" />
-            </svg>
-          </div>
+          {/* Double chevrons right */}
+          <svg viewBox="0 0 24 20" className="w-5 h-4 text-foreground/50">
+            <path d="M2 2L10 10L2 18" stroke="currentColor" strokeWidth="2" fill="none" />
+            <path d="M12 2L20 10L12 18" stroke="currentColor" strokeWidth="2" fill="none" />
+          </svg>
+
+          {/* Circle with star pattern */}
+          <svg viewBox="0 0 36 36" className="w-8 h-8 text-foreground/70">
+            <circle cx="18" cy="18" r="16" stroke="currentColor" strokeWidth="2" fill="none" />
+            <circle cx="18" cy="18" r="10" stroke="currentColor" strokeWidth="1.5" fill="none" />
+            <line x1="18" y1="4" x2="18" y2="32" stroke="currentColor" strokeWidth="1.5" />
+            <line x1="4" y1="18" x2="32" y2="18" stroke="currentColor" strokeWidth="1.5" />
+            <line x1="7" y1="7" x2="29" y2="29" stroke="currentColor" strokeWidth="1" />
+            <line x1="29" y1="7" x2="7" y2="29" stroke="currentColor" strokeWidth="1" />
+          </svg>
+
+          {/* Double chevrons left */}
+          <svg viewBox="0 0 24 20" className="w-5 h-4 text-foreground/50">
+            <path d="M22 2L14 10L22 18" stroke="currentColor" strokeWidth="2" fill="none" />
+            <path d="M12 2L4 10L12 18" stroke="currentColor" strokeWidth="2" fill="none" />
+          </svg>
+
+          {/* Triple chevrons right */}
+          <svg viewBox="0 0 30 20" className="w-6 h-4 text-foreground/70">
+            <path d="M2 2L10 10L2 18" stroke="currentColor" strokeWidth="2" fill="none" />
+            <path d="M10 2L18 10L10 18" stroke="currentColor" strokeWidth="2" fill="none" />
+            <path d="M18 2L26 10L18 18" stroke="currentColor" strokeWidth="2" fill="none" />
+          </svg>
+
+          {/* Mountain */}
+          <svg viewBox="0 0 30 24" className="w-6 h-5 text-foreground/60">
+            <path d="M4 20L10 6L15 12L20 6L26 20" stroke="currentColor" strokeWidth="2" fill="none" />
+          </svg>
+
+          {/* Triple chevrons left */}
+          <svg viewBox="0 0 30 20" className="w-6 h-4 text-foreground/70">
+            <path d="M28 2L20 10L28 18" stroke="currentColor" strokeWidth="2" fill="none" />
+            <path d="M20 2L12 10L20 18" stroke="currentColor" strokeWidth="2" fill="none" />
+            <path d="M12 2L4 10L12 18" stroke="currentColor" strokeWidth="2" fill="none" />
+          </svg>
+
+          {/* Double chevrons right */}
+          <svg viewBox="0 0 24 20" className="w-5 h-4 text-foreground/50">
+            <path d="M2 2L10 10L2 18" stroke="currentColor" strokeWidth="2" fill="none" />
+            <path d="M12 2L20 10L12 18" stroke="currentColor" strokeWidth="2" fill="none" />
+          </svg>
+
+          {/* Circle with star pattern */}
+          <svg viewBox="0 0 36 36" className="w-8 h-8 text-foreground/70">
+            <circle cx="18" cy="18" r="16" stroke="currentColor" strokeWidth="2" fill="none" />
+            <circle cx="18" cy="18" r="10" stroke="currentColor" strokeWidth="1.5" fill="none" />
+            <line x1="18" y1="4" x2="18" y2="32" stroke="currentColor" strokeWidth="1.5" />
+            <line x1="4" y1="18" x2="32" y2="18" stroke="currentColor" strokeWidth="1.5" />
+            <line x1="7" y1="7" x2="29" y2="29" stroke="currentColor" strokeWidth="1" />
+            <line x1="29" y1="7" x2="7" y2="29" stroke="currentColor" strokeWidth="1" />
+          </svg>
+
+          {/* Double chevrons left */}
+          <svg viewBox="0 0 24 20" className="w-5 h-4 text-foreground/50">
+            <path d="M22 2L14 10L22 18" stroke="currentColor" strokeWidth="2" fill="none" />
+            <path d="M12 2L4 10L12 18" stroke="currentColor" strokeWidth="2" fill="none" />
+          </svg>
+
+          {/* Triple chevrons right - hidden on mobile */}
+          <svg viewBox="0 0 30 20" className="w-6 h-4 text-foreground/70 hidden md:block">
+            <path d="M2 2L10 10L2 18" stroke="currentColor" strokeWidth="2" fill="none" />
+            <path d="M10 2L18 10L10 18" stroke="currentColor" strokeWidth="2" fill="none" />
+            <path d="M18 2L26 10L18 18" stroke="currentColor" strokeWidth="2" fill="none" />
+          </svg>
+
+          {/* Mountain - hidden on mobile */}
+          <svg viewBox="0 0 30 24" className="w-6 h-5 text-foreground/60 hidden md:block">
+            <path d="M4 20L10 6L15 12L20 6L26 20" stroke="currentColor" strokeWidth="2" fill="none" />
+          </svg>
+
+          {/* Triple chevrons left - hidden on mobile */}
+          <svg viewBox="0 0 30 20" className="w-6 h-4 text-foreground/70 hidden md:block">
+            <path d="M28 2L20 10L28 18" stroke="currentColor" strokeWidth="2" fill="none" />
+            <path d="M20 2L12 10L20 18" stroke="currentColor" strokeWidth="2" fill="none" />
+            <path d="M12 2L4 10L12 18" stroke="currentColor" strokeWidth="2" fill="none" />
+          </svg>
         </div>
         
         {/* Bottom line */}
-        <div className="h-0.5 bg-foreground/40 rounded-full mt-4" />
+        <div className="h-0.5 bg-foreground/50" />
       </div>
     </div>
   );
