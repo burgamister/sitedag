@@ -2,7 +2,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SectionDivider from "@/components/SectionDivider";
 import logoFull from "@/assets/logo-full.png";
-import { Instagram, Send, MessageCircle, Sparkles } from "lucide-react";
+import { Instagram, Send, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -170,135 +170,101 @@ const Home = () => {
 
       {/* Contact Section */}
       <section id="contacts" className="relative py-20 px-6 bg-background">
-        <div className="container mx-auto max-w-4xl">
-          <div className="text-center mb-16 animate-fade-in">
-            <div className="inline-flex items-center gap-2 mb-4">
-              <Sparkles className="w-5 h-5 text-foreground/60" />
-              <span className="font-montserrat text-foreground/60 text-sm uppercase tracking-widest">
-                Начни свой путь
-              </span>
-              <Sparkles className="w-5 h-5 text-foreground/60" />
-            </div>
-            <h2 className="font-montserrat text-4xl md:text-6xl font-semibold text-foreground mb-4 inline-block relative pb-3">
+        <div className="container mx-auto max-w-2xl">
+          <div className="text-center mb-12 animate-fade-in">
+            <h2 className="font-montserrat text-4xl md:text-5xl font-semibold text-foreground mb-4 inline-block relative pb-3">
               СВЯЗАТЬСЯ
-              <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-24 h-1 bg-foreground"></span>
+              <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-16 h-1 bg-foreground"></span>
             </h2>
+            <p className="font-montserrat text-foreground/70 text-lg mt-6">
+              Заполните форму, и мы поможем начать ваш путь к английскому языку
+            </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-12 items-start">
-            {/* Left side - Message */}
-            <div className="animate-fade-in">
-              <div className="relative">
-                <div className="absolute -left-4 top-0 w-1 h-full bg-foreground/20 rounded-full" />
-                <h3 className="font-montserrat text-2xl md:text-3xl font-semibold text-foreground mb-6 pl-4">
-                  Готовы начать изучать английский?
-                </h3>
-                <p className="font-montserrat text-foreground/70 text-lg leading-relaxed mb-8 pl-4">
-                  Оставьте заявку, и мы свяжемся с вами, чтобы подобрать идеальный формат обучения именно для вас.
-                </p>
-              </div>
-
-              {/* Decorative quote */}
-              <div className="bg-muted/50 rounded-2xl p-6 border border-foreground/10">
-                <svg className="w-8 h-8 text-foreground/30 mb-3" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
-                </svg>
-                <p className="font-montserrat text-foreground/80 italic">
-                  Каждый великий путь начинается с первого шага. Ваш шаг к английскому — здесь.
-                </p>
-              </div>
+          {/* Contact Form */}
+          <form onSubmit={handleSubmit} className="space-y-6 animate-fade-in">
+            <div>
+              <Input
+                type="text"
+                placeholder="Ваше имя"
+                value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                className={`rounded-none border-foreground/20 ${errors.name ? "border-red-500" : ""}`}
+              />
+              {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
             </div>
 
-            {/* Right side - Form */}
-            <div className="animate-fade-in">
-              <form onSubmit={handleSubmit} className="space-y-5 bg-card/50 p-8 rounded-2xl border border-foreground/10">
-                <div>
-                  <label className="font-montserrat text-sm text-foreground/70 mb-2 block">Ваше имя</label>
-                  <Input
-                    type="text"
-                    placeholder="Введите имя"
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className={`bg-background/50 border-foreground/20 focus:border-foreground/40 ${errors.name ? "border-red-500" : ""}`}
-                  />
-                  {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
-                </div>
+            <div>
+              <Input
+                type="email"
+                placeholder="Ваш email"
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                className={`rounded-none border-foreground/20 ${errors.email ? "border-red-500" : ""}`}
+              />
+              {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+            </div>
 
-                <div>
-                  <label className="font-montserrat text-sm text-foreground/70 mb-2 block">Email</label>
-                  <Input
-                    type="email"
-                    placeholder="example@mail.com"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className={`bg-background/50 border-foreground/20 focus:border-foreground/40 ${errors.email ? "border-red-500" : ""}`}
-                  />
-                  {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
-                </div>
+            <div>
+              <Textarea
+                placeholder="Ваше сообщение"
+                value={formData.message}
+                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                className={`min-h-[150px] rounded-none border-foreground/20 ${errors.message ? "border-red-500" : ""}`}
+              />
+              {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
+            </div>
 
-                <div>
-                  <label className="font-montserrat text-sm text-foreground/70 mb-2 block">Сообщение</label>
-                  <Textarea
-                    placeholder="Расскажите о ваших целях..."
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className={`min-h-[120px] bg-background/50 border-foreground/20 focus:border-foreground/40 resize-none ${errors.message ? "border-red-500" : ""}`}
-                  />
-                  {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
-                </div>
+            <Button 
+              type="submit" 
+              className="w-full rounded-none"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Отправка..." : "Отправить"}
+            </Button>
+          </form>
 
-                <Button 
-                  type="submit" 
-                  className="w-full py-6 text-base font-semibold"
-                  disabled={isSubmitting}
-                >
-                  {isSubmitting ? "Отправка..." : "Отправить заявку"}
-                </Button>
-              </form>
+          {/* Social Media Alternative */}
+          <div className="mt-12 text-center animate-fade-in">
+            <p className="text-foreground/50 text-sm mb-4">или ты, напиши нам</p>
+            <div className="flex items-center justify-center gap-4">
+              <a
+                href="https://instagram.com/dagenglish"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 hover:scale-110 transition-transform"
+              >
+                <Instagram className="w-6 h-6 text-foreground/60 hover:text-foreground" />
+              </a>
 
-              {/* Social Media Alternative */}
-              <div className="mt-8 text-center">
-                <p className="text-foreground/40 text-sm mb-4 font-montserrat">или ты, напиши нам</p>
-                <div className="flex items-center justify-center gap-3">
-                  <a
-                    href="https://instagram.com/dagenglish"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-3 rounded-full bg-foreground/5 hover:bg-foreground/10 transition-all hover:scale-110"
-                  >
-                    <Instagram className="w-5 h-5 text-foreground/60" />
-                  </a>
+              <a
+                href="https://t.me/dagenglish"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 hover:scale-110 transition-transform"
+              >
+                <Send className="w-6 h-6 text-foreground/60 hover:text-foreground" />
+              </a>
 
-                  <a
-                    href="https://t.me/dagenglish"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-3 rounded-full bg-foreground/5 hover:bg-foreground/10 transition-all hover:scale-110"
-                  >
-                    <Send className="w-5 h-5 text-foreground/60" />
-                  </a>
+              <a
+                href="https://wa.me/79288699696"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 hover:scale-110 transition-transform"
+              >
+                <MessageCircle className="w-6 h-6 text-foreground/60 hover:text-foreground" />
+              </a>
 
-                  <a
-                    href="https://wa.me/79288699696"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-3 rounded-full bg-foreground/5 hover:bg-foreground/10 transition-all hover:scale-110"
-                  >
-                    <MessageCircle className="w-5 h-5 text-foreground/60" />
-                  </a>
-
-                  <a
-                    href="https://vk.com/dagenglish"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-3 rounded-full bg-foreground/5 hover:bg-foreground/10 transition-all hover:scale-110"
-                  >
-                    <svg className="w-5 h-5 text-foreground/60" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.408 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.864-.525-2.05-1.727-1.033-1-1.49-1.135-1.744-1.135-.356 0-.458.102-.458.593v1.575c0 .424-.135.678-1.253.678-1.846 0-3.896-1.118-5.335-3.202C4.624 10.857 4.03 8.57 4.03 8.096c0-.254.102-.491.593-.491h1.744c.44 0 .61.203.78.677.863 2.49 2.303 4.675 2.896 4.675.22 0 .322-.102.322-.66V9.721c-.068-1.186-.695-1.287-.695-1.71 0-.204.17-.407.44-.407h2.744c.373 0 .508.203.508.643v3.473c0 .372.17.508.271.508.22 0 .407-.136.813-.542 1.254-1.406 2.151-3.574 2.151-3.574.119-.254.322-.491.763-.491h1.744c.525 0 .644.27.525.643-.22 1.017-2.354 4.031-2.354 4.031-.186.305-.254.44 0 .779.186.254.796.779 1.203 1.253.745.847 1.32 1.558 1.473 2.05.17.492-.085.744-.576.744z"/>
-                    </svg>
-                  </a>
-                </div>
-              </div>
+              <a
+                href="https://vk.com/dagenglish"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 hover:scale-110 transition-transform"
+              >
+                <svg className="w-6 h-6 text-foreground/60 hover:text-foreground" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.408 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.864-.525-2.05-1.727-1.033-1-1.49-1.135-1.744-1.135-.356 0-.458.102-.458.593v1.575c0 .424-.135.678-1.253.678-1.846 0-3.896-1.118-5.335-3.202C4.624 10.857 4.03 8.57 4.03 8.096c0-.254.102-.491.593-.491h1.744c.44 0 .61.203.78.677.863 2.49 2.303 4.675 2.896 4.675.22 0 .322-.102.322-.66V9.721c-.068-1.186-.695-1.287-.695-1.71 0-.204.17-.407.44-.407h2.744c.373 0 .508.203.508.643v3.473c0 .372.17.508.271.508.22 0 .407-.136.813-.542 1.254-1.406 2.151-3.574 2.151-3.574.119-.254.322-.491.763-.491h1.744c.525 0 .644.27.525.643-.22 1.017-2.354 4.031-2.354 4.031-.186.305-.254.44 0 .779.186.254.796.779 1.203 1.253.745.847 1.32 1.558 1.473 2.05.17.492-.085.744-.576.744z"/>
+                </svg>
+              </a>
             </div>
           </div>
         </div>
