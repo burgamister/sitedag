@@ -1,3 +1,18 @@
+/* Custom Cursor */
+* {
+  cursor: url('/src/assets/cursor-default.svg') 4 2, auto;
+}
+
+a,
+button,
+[role="button"],
+input[type="button"],
+input[type="submit"],
+label,
+select {
+  cursor: url('/src/assets/cursor-pointer.svg') 12 12, pointer;
+}
+
 #root {
   max-width: 1280px;
   margin: 0 auto;

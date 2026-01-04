@@ -71,3 +71,12 @@ Yes, you can!
 To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
 
 Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+
+## Project status (updated Jan 4, 2026)
+
+- Project: `godekan-header-clone` — a visual clone of a website header/hero using React + Vite + Tailwind.
+- Current scope: we are implementing the header/hero UI so it matches the provided designs (centered logo, background image, nav and mobile menu present).
+- Where we stopped: the header 
+	- `src/components/Header.tsx` was updated to support a hero layout at the top of the page (centered logo overlay while keeping nav and burger menu in the DOM).
+	- `src/components/ParallaxMountains.tsx` was updated to use the supplied `src/assets/image.png` for the layered mountain visuals, keeping the original parallax math (opacity + translate) intact.
+- What we're doing right now: editing and iterating on visuals and layout to match the reference photo. That includes tuning image sizing, layer opacities, and header spacing. 
