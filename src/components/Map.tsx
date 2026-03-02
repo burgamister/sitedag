@@ -29,7 +29,7 @@ const Map = () => {
       .setLngLat(makhachkalaCoords)
       .setPopup(
         new mapboxgl.Popup({ offset: 25 })
-          .setHTML('<div style="font-family: Montserrat; padding: 4px;"><strong>DagEnglish</strong><br/>Махачкала, Дагестан</div>')
+          .setHTML('<div style="font-family: Montserrat, sans-serif; padding: 4px;"><strong>DagEnglish</strong><br/>Махачкала, Дагестан</div>')
       )
       .addTo(map.current);
 

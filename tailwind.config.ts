@@ -14,7 +14,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        'montserrat': ['Montserrat', 'sans-serif'],
+        'montserrat': ['Manrope', 'Inter', 'system-ui', 'sans-serif'],
+        'main': ['Manrope', 'Inter', 'system-ui', 'sans-serif'],
         'alata': ['Alata', 'sans-serif'],
       },
       colors: {
