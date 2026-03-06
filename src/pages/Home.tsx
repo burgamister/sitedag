@@ -1,19 +1,18 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import logoFull from "@/assets/logo-full.png";
-import dagestanOrnament from "@/assets/dagestan-ornament-strip.jpg";
 import { useNavigate } from "react-router-dom";
 
 const whyDagEnglishItems = [
   {
     id: "01",
-    title: "поддержка в чате",
-    text: "Отвечаем быстро в чате и по телефону. Помогаем с вопросами по урокам, домашке и расписанию.",
+    title: "атмосфера как дома",
+    text: "У нас на уроках ты чувствуешь себя как дома. Можем чай попить, фильмы посмотерть. Главное много не наглеть!",
   },
   {
     id: "02",
-    title: "удобные материалы",
-    text: "Все материалы структурированы и доступны в одном месте: теория, практика, словари и трекер прогресса.",
+    title: "упор на практику",
+    text: "Уроки проводятся на английском языке, чтоб вы привыкали к языку. Не переживайте спрашивать учителя если не понимаете о чем идет речь.",
   },
   {
     id: "03",
@@ -22,8 +21,8 @@ const whyDagEnglishItems = [
   },
   {
     id: "04",
-    title: "безопасная среда",
-    text: "Доброжелательная атмосфера, уважение к каждому ученику и стабильная платформа для онлайн-занятий.",
+    title: "стильные ковры",
+    text: "В каждом классе у нас висят красивые дагестанские ковры. Больше можете посмотреть здесь.",
   },
 ];
 
@@ -66,7 +65,7 @@ const Home = () => {
 
           <div className="mx-auto mt-8 max-w-[1400px] md:mt-10">
             <h2 className="font-main text-[clamp(2.8rem,6vw,7.2rem)] font-medium leading-[1.07] tracking-[-0.02em] text-foreground">
-              <span className="text-[hsl(16_33%_33%)]">дагинглиш</span> - английский
+              <span className="text-[hsl(0_82%_18%)]">дагинглиш</span> - английский
               <span className="block"> легко и с юмором</span>
             </h2>
 
@@ -77,7 +76,7 @@ const Home = () => {
             <button
               type="button"
               onClick={() => navigate("/courses")}
-              className="mt-10 inline-flex w-full max-w-[760px] items-center justify-center rounded-[3rem] bg-[hsl(16_33%_30%)] px-10 py-7 font-montserrat text-[clamp(1.15rem,1.6vw,2rem)] font-medium uppercase tracking-[0.06em] text-background"
+              className="mt-10 inline-flex w-full max-w-[760px] items-center justify-center rounded-[3rem] bg-[hsl(0_82%_18%)] px-10 py-7 font-montserrat text-[clamp(1.15rem,1.6vw,2rem)] font-medium uppercase tracking-[0.06em] text-background"
             >
               записаться
             </button>
@@ -87,51 +86,66 @@ const Home = () => {
 
       {/* Prices Section */}
       <section id="prices" className="relative bg-background px-4 py-12 md:px-6 md:py-20">
-        <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-8 md:mb-12 animate-fade-in">
-            <h2 className="font-main text-3xl md:text-5xl font-bold tracking-[0.015em] text-foreground mb-4 inline-block relative pb-3">
-              ОБУЧЕНИЕ
-              <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-12 md:w-16 h-1 bg-foreground"></span>
-            </h2>
+        <div className="container relative z-10 mx-auto max-w-6xl">
+          <div className="mb-8 text-center md:mb-12 animate-fade-in">
+            <p className="font-montserrat text-base italic tracking-[0.18em] text-foreground/55 md:text-lg">обучение</p>
           </div>
 
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 animate-fade-in">
-            {["индивидуально", "группа"].map((mode) => (
-              <button
-                key={mode}
-                type="button"
-                onClick={() => navigate("/courses")}
-                className="group relative aspect-[2/3] w-full overflow-hidden rounded-[26px] border border-[hsl(16_33%_33%/0.25)] bg-white text-left transition-transform duration-300 hover:-translate-y-1"
-                aria-label={mode}
-              >
-                <div
-                  aria-hidden="true"
-                  className="absolute inset-0"
-                  style={{
-                    backgroundImage: `url(${dagestanOrnament})`,
-                    backgroundRepeat: "repeat-y",
-                    backgroundSize: "116% auto",
-                    backgroundPosition: "center top",
-                  }}
-                />
-                <span aria-hidden="true" className="absolute inset-0 bg-[hsl(16_33%_33%)] opacity-95 mix-blend-screen" />
-                <span aria-hidden="true" className="absolute inset-0 bg-white/10 transition-colors duration-300 group-hover:bg-white/0" />
-                <span className="absolute bottom-5 left-5 rounded-md bg-white/78 px-3 py-1 font-main text-2xl font-semibold tracking-[0.015em] text-[hsl(16_33%_33%)] md:bottom-7 md:left-7 md:text-3xl">
-                  {mode}
-                </span>
-              </button>
-            ))}
+          <div className="mx-auto flex max-w-5xl flex-col items-center gap-4 md:flex-row md:items-end md:justify-center md:gap-3 animate-fade-in">
+            <button
+              type="button"
+              onClick={() => navigate("/courses")}
+              className="group relative h-[320px] w-full max-w-[360px] overflow-hidden border border-foreground/25 bg-background text-left md:h-[380px] md:max-w-[410px]"
+              aria-label="индивидуально"
+            >
+              <span
+                aria-hidden="true"
+                className="absolute inset-0 bg-[linear-gradient(145deg,hsl(71_33%_23%/0.14)_0%,hsl(0_82%_18%/0.12)_55%,hsl(49_52%_94%/0.95)_100%)] transition-transform duration-500 group-hover:scale-105"
+              />
+              <span
+                aria-hidden="true"
+                className="absolute inset-0 opacity-35 [background-image:repeating-linear-gradient(135deg,transparent,transparent_20px,hsl(0_82%_18%/0.15)_21px,hsl(0_82%_18%/0.15)_22px)]"
+              />
+              <span className="absolute bottom-7 left-7 bg-background/85 px-3 py-1 font-main text-2xl font-semibold tracking-[0.015em] text-[hsl(0_82%_18%)] md:bottom-9 md:left-9 md:text-3xl">
+                индивидуально
+              </span>
+            </button>
+
+            <p className="w-full max-w-[360px] px-1 text-left font-montserrat text-lg font-semibold leading-[1.05] tracking-[0.01em] text-foreground/90 md:max-w-[230px] md:self-end md:pb-2 md:text-xl">
+              <span className="block">нажми,</span>
+              <span className="mt-0.5 block">чтобы</span>
+              <span className="mt-0.5 block">узнать подробней</span>
+            </p>
+
+            <button
+              type="button"
+              onClick={() => navigate("/courses")}
+              className="group relative h-[320px] w-full max-w-[360px] overflow-hidden border border-foreground/25 bg-background text-left md:h-[380px] md:max-w-[410px]"
+              aria-label="группа"
+            >
+              <span
+                aria-hidden="true"
+                className="absolute inset-0 bg-[linear-gradient(145deg,hsl(71_33%_23%/0.14)_0%,hsl(0_82%_18%/0.12)_55%,hsl(49_52%_94%/0.95)_100%)] transition-transform duration-500 group-hover:scale-105"
+              />
+              <span
+                aria-hidden="true"
+                className="absolute inset-0 opacity-35 [background-image:repeating-linear-gradient(135deg,transparent,transparent_20px,hsl(0_82%_18%/0.15)_21px,hsl(0_82%_18%/0.15)_22px)]"
+              />
+              <span className="absolute bottom-7 left-7 bg-background/85 px-3 py-1 font-main text-2xl font-semibold tracking-[0.015em] text-[hsl(0_82%_18%)] md:bottom-9 md:left-9 md:text-3xl">
+                группа
+              </span>
+            </button>
           </div>
         </div>
       </section>
 
       {/* Why DagEnglish Section */}
-      <section id="why-us" className="bg-foreground/[0.05] px-4 py-14 md:px-6 md:py-20">
+      <section id="why-us" className="bg-background px-4 py-14 md:px-6 md:py-20">
         <div className="mx-auto max-w-6xl">
           <div className="mb-10 max-w-xl md:mb-14">
             <h2 className="font-main text-5xl font-bold leading-[0.9] tracking-tight text-foreground md:text-7xl">
               почему
-              <span className="block">дагинглиш</span>
+              <span className="block text-[hsl(0_82%_18%)]">дагинглиш</span>
             </h2>
             <p className="mt-6 max-w-md font-montserrat text-base leading-snug text-foreground/75">
               мы - современная школа английского.
@@ -141,12 +155,9 @@ const Home = () => {
           </div>
 
           <div className="grid grid-cols-1 gap-3 md:grid-cols-4">
-            {whyDagEnglishItems.map((item, index) => (
-              <div key={item.title} className="relative pt-7 md:pt-9">
-                <span className="absolute left-2 top-0 font-montserrat text-xs font-semibold tracking-[0.14em] text-foreground/40">
-                  {item.id}
-                </span>
-                <article className="relative h-[360px] overflow-hidden rounded-[26px] border border-foreground/10 bg-background p-6 md:h-[390px]">
+            {whyDagEnglishItems.map((item) => (
+              <div key={item.title} className="relative">
+                <article className="relative min-h-[220px] overflow-hidden rounded-[26px] border border-foreground/10 bg-background p-6 md:min-h-[250px]">
                   <span className="pointer-events-none absolute right-4 top-3 font-montserrat text-6xl font-semibold leading-none text-foreground/[0.07] md:text-7xl">
                     {item.id}
                   </span>
@@ -156,47 +167,24 @@ const Home = () => {
                   <p className="relative z-10 mt-4 max-w-[90%] font-montserrat text-[15px] leading-[1.25] text-foreground/60">
                     {item.text}
                   </p>
-
-                  {index === 0 && (
-                    <div className="absolute bottom-11 left-6 flex gap-2">
-                      {["h", "e", "l", "p"].map((letter, letterIndex) => (
-                        <span
-                          key={letter}
-                          className="flex h-12 w-12 items-center justify-center rounded-xl border border-foreground/20 bg-background font-main text-5xl font-bold text-foreground shadow-sm"
-                          style={{ transform: `rotate(${[-4, 5, -2, 7][letterIndex]}deg)` }}
-                        >
-                          {letter}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-
-                  {index === 1 && (
-                    <div className="absolute bottom-10 left-6 right-6 flex items-center justify-between">
-                      <span className="h-20 w-20 rounded-full border border-cyan-400" />
-                      <span className="mx-3 h-px flex-1 bg-cyan-300" />
-                      <span className="font-montserrat text-cyan-400">→</span>
-                      <span className="h-20 w-20 rounded-2xl bg-cyan-400" />
-                    </div>
-                  )}
-
-                  {index === 2 && (
-                    <p className="absolute -bottom-3 left-6 whitespace-nowrap font-montserrat text-7xl font-light text-foreground/80 md:text-8xl">
-                      1500₽ = 1 урок
-                    </p>
-                  )}
-
-                  {index === 3 && (
-                    <>
-                      <span className="absolute bottom-[31%] left-0 right-0 h-px bg-foreground/40" />
-                      <span className="absolute bottom-0 left-1/2 top-[68%] w-px bg-foreground/40" />
-                      <span className="absolute bottom-0 left-[14%] top-[32%] w-px rotate-45 bg-cyan-300" />
-                    </>
-                  )}
                 </article>
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="bg-background px-4 pb-6 md:px-6 md:pb-10">
+        <div className="mx-auto max-w-6xl">
+          <button
+            type="button"
+            onClick={() => navigate("/level-test")}
+            className="group relative flex h-[72svh] w-full items-end justify-start overflow-hidden border-2 border-[hsl(71_33%_23%)] bg-[hsl(71_33%_23%)] p-6 text-left transition-all duration-300 hover:brightness-110 md:h-[82svh] md:p-10"
+          >
+            <span className="relative z-10 font-main text-[clamp(3rem,12vw,10rem)] font-bold uppercase leading-[0.9] tracking-[-0.02em] text-background">
+              тест уровня
+            </span>
+          </button>
         </div>
       </section>
 
