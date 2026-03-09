@@ -12,10 +12,17 @@
 
 ```bash
 cd server-go
-TELEGRAM_BOT_TOKEN=123456:ABCDEF \
-TELEGRAM_TARGET_CHAT_ID=123456789 \
-LISTEN_ADDR=:8080 \
-CORS_ORIGIN=http://localhost:5173 \
+go run .
+```
+
+Сервер автоматически подхватывает переменные из `server-go/.env` (или `.env` в текущей директории).
+
+Рекомендуется:
+
+```bash
+cd server-go
+cp .env.example .env
+# заполнить TELEGRAM_BOT_TOKEN и TELEGRAM_TARGET_CHAT_ID
 go run .
 ```
 

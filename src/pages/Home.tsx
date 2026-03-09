@@ -1,7 +1,8 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import logoFull from "@/assets/logo-full.png";
-import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const whyDagEnglishItems = [
   {
@@ -28,6 +29,20 @@ const whyDagEnglishItems = [
 
 const Home = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash !== "#level-test-cta") {
+      return;
+    }
+
+    const element = document.getElementById("level-test-cta");
+    if (!element) {
+      return;
+    }
+
+    element.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, [location.hash]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -51,7 +66,7 @@ const Home = () => {
         </div>
 
         {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce z-20">
+        <div className="absolute bottom-8 left-1/2 z-20 hidden -translate-x-1/2 animate-bounce sm:block">
           <div className="w-6 h-10 border-2 border-foreground/30 rounded-full flex items-start justify-center p-2">
             <div className="w-1 h-3 bg-foreground/50 rounded-full"></div>
           </div>
@@ -174,13 +189,17 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="bg-background px-4 pb-6 md:px-6 md:pb-10">
+      <section id="level-test-cta" className="bg-background px-4 pb-6 md:px-6 md:pb-10">
         <div className="mx-auto max-w-6xl">
           <button
             type="button"
             onClick={() => navigate("/level-test")}
-            className="group relative flex h-[72svh] w-full items-end justify-start overflow-hidden border-2 border-[hsl(71_33%_23%)] bg-[hsl(71_33%_23%)] p-6 text-left transition-all duration-300 hover:brightness-110 md:h-[82svh] md:p-10"
+            className="group relative flex h-[72svh] w-full items-end justify-start overflow-hidden border-2 border-[hsl(71_33%_23%)] bg-[hsl(71_33%_23%)] p-6 text-left md:h-[82svh] md:p-10"
           >
+            <span
+              aria-hidden="true"
+              className="absolute inset-0 bg-[hsl(71_33%_23%/0.62)]"
+            />
             <span className="relative z-10 font-main text-[clamp(3rem,12vw,10rem)] font-bold uppercase leading-[0.9] tracking-[-0.02em] text-background">
               тест уровня
             </span>

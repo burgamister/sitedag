@@ -1,4 +1,5 @@
 import Header from "@/components/Header";
+import { Check } from "lucide-react";
 import { useMemo, useState } from "react";
 
 type TestQuestion = {
@@ -67,7 +68,11 @@ const questions: TestQuestion[] = [
 
 const LevelTest = () => {
   const [inputs, setInputs] = useState<string[][]>(() => questions.map((q) => q.answers.map(() => "")));
+  const [confirmedQuestions, setConfirmedQuestions] = useState<boolean[]>(() => questions.map(() => false));
+  const [questionErrors, setQuestionErrors] = useState<string[]>(() => questions.map(() => ""));
+  const [unlockedQuestions, setUnlockedQuestions] = useState(1);
   const [submitted, setSubmitted] = useState(false);
+  const [isLeadModalOpen, setIsLeadModalOpen] = useState(false);
   const [studentName, setStudentName] = useState("");
   const [phoneOrTelegram, setPhoneOrTelegram] = useState("");
   const [extraContact, setExtraContact] = useState("");
@@ -98,9 +103,44 @@ const LevelTest = () => {
       next[questionIndex][answerIndex] = value;
       return next;
     });
+
+    setQuestionErrors((prev) => {
+      const next = [...prev];
+      next[questionIndex] = "";
+      return next;
+    });
   };
 
   const canSendResults = phoneOrTelegram.trim().length > 0 || extraContact.trim().length > 0;
+  const allQuestionsConfirmed = confirmedQuestions.every(Boolean);
+
+  const confirmQuestion = (questionIndex: number) => {
+    const isFilled = inputs[questionIndex].every((value) => value.trim().length > 0);
+    if (!isFilled) {
+      setQuestionErrors((prev) => {
+        const next = [...prev];
+        next[questionIndex] = "Заполните все пропуски перед подтверждением.";
+        return next;
+      });
+      return;
+    }
+
+    setConfirmedQuestions((prev) => {
+      const next = [...prev];
+      next[questionIndex] = true;
+      return next;
+    });
+
+    setQuestionErrors((prev) => {
+      const next = [...prev];
+      next[questionIndex] = "";
+      return next;
+    });
+
+    if (questionIndex + 1 < questions.length) {
+      setUnlockedQuestions((prev) => Math.max(prev, questionIndex + 2));
+    }
+  };
 
   const sendResults = async () => {
     if (!canSendResults || isSending) {
@@ -167,7 +207,7 @@ const LevelTest = () => {
           </div>
 
           <div className="mt-6 space-y-4 md:mt-8 md:space-y-5">
-            {questions.map((question, questionIndex) => (
+            {questions.slice(0, unlockedQuestions).map((question, questionIndex) => (
               <article key={question.id} className="border-2 border-foreground/20 bg-background p-5 md:p-6">
                 <p className="font-montserrat text-xs uppercase tracking-[0.14em] text-foreground/55">
                   вопрос {question.id}
@@ -176,23 +216,45 @@ const LevelTest = () => {
                   {question.russian}
                 </p>
 
-                <div className="mt-4 flex flex-wrap items-center gap-2 md:gap-3">
-                  {question.answers.map((answer, answerIndex) => (
-                    <div key={`${question.id}-${answerIndex}`} className="contents">
-                      <span className="font-montserrat text-base text-foreground/85 md:text-lg">
-                        {question.parts[answerIndex]}
-                      </span>
-                      <input
-                        value={inputs[questionIndex][answerIndex]}
-                        onChange={(event) => onChangeAnswer(questionIndex, answerIndex, event.target.value)}
-                        className="h-11 min-w-[96px] border-2 border-foreground/30 bg-background px-3 text-center font-montserrat text-base font-semibold text-foreground outline-none transition-colors focus:border-[hsl(0_82%_18%)] md:h-12 md:min-w-[130px] md:text-lg"
-                        aria-label={`Ответ ${answerIndex + 1} для вопроса ${question.id}`}
-                      />
-                    </div>
-                  ))}
-                  <span className="font-montserrat text-base text-foreground/85 md:text-lg">
-                    {question.parts[question.parts.length - 1]}
-                  </span>
+                <div className="mt-4 rounded-xl border border-foreground/15 bg-foreground/[0.02] p-3 md:p-4">
+                  <div className="flex flex-wrap items-center gap-x-2 gap-y-3 font-montserrat text-[15px] leading-relaxed text-foreground/85 md:text-lg">
+                    {question.answers.map((_, answerIndex) => (
+                      <div key={`${question.id}-${answerIndex}`} className="contents">
+                        <span>{question.parts[answerIndex]}</span>
+                        <input
+                          value={inputs[questionIndex][answerIndex]}
+                          disabled={confirmedQuestions[questionIndex]}
+                          onChange={(event) => onChangeAnswer(questionIndex, answerIndex, event.target.value)}
+                          className="h-10 w-[110px] border-2 border-foreground/30 bg-background px-2 text-center font-montserrat text-base font-semibold text-foreground outline-none transition-colors focus:border-[hsl(0_82%_18%)] disabled:cursor-not-allowed disabled:border-foreground/20 disabled:bg-foreground/10 disabled:text-foreground/65 md:h-12 md:w-[140px] md:px-3 md:text-lg"
+                          aria-label={`Ответ ${answerIndex + 1} для вопроса ${question.id}`}
+                        />
+                      </div>
+                    ))}
+                    <span>{question.parts[question.parts.length - 1]}</span>
+                  </div>
+                </div>
+
+                <div className="mt-4 flex flex-col items-start gap-2 md:flex-row md:items-center md:gap-3">
+                  {!confirmedQuestions[questionIndex] ? (
+                    <button
+                      type="button"
+                      onClick={() => confirmQuestion(questionIndex)}
+                      className="inline-flex items-center gap-2 border-2 border-[hsl(71_33%_23%)] bg-[hsl(71_33%_23%)] px-4 py-2 font-montserrat text-xs font-semibold uppercase tracking-[0.08em] text-background transition-colors hover:bg-background hover:text-[hsl(71_33%_23%)] md:text-sm"
+                    >
+                      <Check className="h-4 w-4" />
+                      подтвердить
+                    </button>
+                  ) : (
+                    <p className="font-montserrat text-xs uppercase tracking-[0.08em] text-[hsl(71_33%_23%)] md:text-sm">
+                      ответ подтвержден
+                    </p>
+                  )}
+
+                  {questionErrors[questionIndex] && (
+                    <p className="font-montserrat text-sm text-[hsl(0_82%_18%)]">
+                      {questionErrors[questionIndex]}
+                    </p>
+                  )}
                 </div>
 
                 {submitted && (
@@ -204,88 +266,126 @@ const LevelTest = () => {
             ))}
           </div>
 
-          <div className="mt-8 flex flex-col items-start gap-4 md:mt-10 md:flex-row md:items-center">
-            <button
-              type="button"
-              onClick={() => setSubmitted(true)}
-              className="inline-flex items-center justify-center border-2 border-[hsl(71_33%_23%)] bg-[hsl(71_33%_23%)] px-8 py-4 font-montserrat text-base font-semibold uppercase tracking-[0.08em] text-background transition-colors hover:bg-background hover:text-[hsl(71_33%_23%)]"
-            >
-              проверить
-            </button>
+          {!allQuestionsConfirmed && (
+            <p className="mt-5 font-montserrat text-sm text-foreground/65 md:mt-6">
+              Ответьте на текущий вопрос и нажмите на галочку, чтобы открыть следующий. Если не знаете, напишите что хотите.
+            </p>
+          )}
 
-            {submitted && (
-              <p className="font-main text-3xl text-[hsl(0_82%_18%)] md:text-4xl">
-                результат: {score.ok}/{score.total}
-              </p>
-            )}
-          </div>
+          {allQuestionsConfirmed && (
+            <div className="mt-8 flex flex-col items-start gap-4 md:mt-10 md:flex-row md:items-center">
+              <button
+                type="button"
+                onClick={() => {
+                  setSubmitted(true);
+                  setIsLeadModalOpen(true);
+                }}
+                className="inline-flex items-center justify-center border-2 border-[hsl(71_33%_23%)] bg-[hsl(71_33%_23%)] px-8 py-4 font-montserrat text-base font-semibold uppercase tracking-[0.08em] text-background transition-colors hover:bg-background hover:text-[hsl(71_33%_23%)]"
+              >
+                проверить
+              </button>
+
+              {submitted && (
+                <p className="font-main text-3xl text-[hsl(0_82%_18%)] md:text-4xl">
+                  результат: {score.ok}/{score.total}
+                </p>
+              )}
+            </div>
+          )}
 
           {submitted && (
-            <section className="mt-8 border-2 border-foreground/20 bg-background p-5 md:mt-10 md:p-7">
-              <h2 className="font-main text-3xl leading-[0.95] text-foreground md:text-5xl">
-                отправить результат нам
-              </h2>
-              <p className="mt-2 max-w-3xl font-montserrat text-sm text-foreground/75 md:text-base">
-                Оставьте контакт, отправьте результаты и мы подберем для вас подходящую группу.
-              </p>
-
-              <div className="mt-5 grid grid-cols-1 gap-3 md:mt-6 md:grid-cols-3 md:gap-4">
-                <input
-                  value={studentName}
-                  onChange={(event) => setStudentName(event.target.value)}
-                  className="h-11 border-2 border-foreground/30 bg-background px-3 font-montserrat text-base text-foreground outline-none transition-colors focus:border-[hsl(0_82%_18%)] md:h-12"
-                  placeholder="Имя (необязательно)"
-                  aria-label="Имя"
-                />
-                <input
-                  value={phoneOrTelegram}
-                  onChange={(event) => setPhoneOrTelegram(event.target.value)}
-                  className="h-11 border-2 border-foreground/30 bg-background px-3 font-montserrat text-base text-foreground outline-none transition-colors focus:border-[hsl(0_82%_18%)] md:h-12"
-                  placeholder="Телефон или Telegram"
-                  aria-label="Телефон или Telegram"
-                />
-                <input
-                  value={extraContact}
-                  onChange={(event) => setExtraContact(event.target.value)}
-                  className="h-11 border-2 border-foreground/30 bg-background px-3 font-montserrat text-base text-foreground outline-none transition-colors focus:border-[hsl(0_82%_18%)] md:h-12"
-                  placeholder="Instagram / доп. контакт"
-                  aria-label="Дополнительный контакт"
-                />
-              </div>
-
-              <div className="mt-5 flex flex-col items-start gap-3 md:mt-6 md:flex-row md:items-center">
-                <button
-                  type="button"
-                  onClick={sendResults}
-                  disabled={!canSendResults || isSending}
-                  className={`inline-flex items-center justify-center border-2 px-8 py-4 font-montserrat text-base font-semibold uppercase tracking-[0.08em] transition-colors ${
-                    canSendResults
-                      ? "border-[hsl(71_33%_23%)] bg-[hsl(71_33%_23%)] text-background hover:bg-background hover:text-[hsl(71_33%_23%)] disabled:cursor-not-allowed disabled:border-foreground/30 disabled:bg-foreground/15 disabled:text-foreground/50"
-                      : "cursor-not-allowed border-foreground/30 bg-foreground/15 text-foreground/50"
-                  }`}
-                >
-                  {isSending ? "отправка..." : "отправить результат"}
-                </button>
-                {!canSendResults && (
-                  <p className="font-montserrat text-sm text-foreground/65">
-                    Укажите хотя бы один контакт для отправки.
-                  </p>
-                )}
-                {sendStatus === "success" && (
-                  <p className="font-montserrat text-sm text-[hsl(71_33%_23%)]">
-                    Заявка отправлена. Мы свяжемся с вами и подберем группу.
-                  </p>
-                )}
-                {sendStatus === "error" && (
-                  <p className="font-montserrat text-sm text-[hsl(0_82%_18%)]">
-                    Не удалось отправить заявку: {sendError}
-                  </p>
-                )}
-              </div>
-            </section>
+            <button
+              type="button"
+              onClick={() => setIsLeadModalOpen(true)}
+              className="mt-8 inline-flex items-center justify-center border-2 border-[hsl(0_82%_18%)] bg-[hsl(0_82%_18%)] px-7 py-3 font-montserrat text-sm font-semibold uppercase tracking-[0.08em] text-background transition-colors hover:bg-background hover:text-[hsl(0_82%_18%)] md:mt-10"
+            >
+              отправить результат нам
+            </button>
           )}
         </section>
       </main>
+
+      {submitted && isLeadModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-foreground/55 px-4 py-6 backdrop-blur-[2px]">
+          <section className="w-full max-w-3xl border-2 border-foreground/25 bg-background p-5 shadow-2xl md:p-7">
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <h2 className="font-main text-3xl leading-[0.95] text-foreground md:text-5xl">
+                  отправить результат нам
+                </h2>
+                <p className="mt-2 max-w-2xl font-montserrat text-sm text-foreground/75 md:text-base">
+                  Оставьте контакт, отправьте результаты и мы свяжемся с вами.
+                </p>
+                <p className="mt-3 inline-flex items-center border border-[hsl(0_82%_18%/0.3)] bg-[hsl(0_82%_18%/0.06)] px-3 py-1 font-montserrat text-sm font-semibold uppercase tracking-[0.08em] text-[hsl(0_82%_18%)]">
+                  результат: {score.ok}/{score.total}
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setIsLeadModalOpen(false)}
+                className="inline-flex h-9 w-9 items-center justify-center border border-foreground/30 font-montserrat text-xl text-foreground/70 transition-colors hover:bg-foreground hover:text-background"
+                aria-label="Закрыть"
+              >
+                ×
+              </button>
+            </div>
+
+            <div className="mt-5 grid grid-cols-1 gap-3 md:mt-6 md:grid-cols-3 md:gap-4">
+              <input
+                value={studentName}
+                onChange={(event) => setStudentName(event.target.value)}
+                className="h-11 border-2 border-foreground/30 bg-background px-3 font-montserrat text-base text-foreground outline-none transition-colors focus:border-[hsl(0_82%_18%)] md:h-12"
+                placeholder="Имя (необязательно)"
+                aria-label="Имя"
+              />
+              <input
+                value={phoneOrTelegram}
+                onChange={(event) => setPhoneOrTelegram(event.target.value)}
+                className="h-11 border-2 border-foreground/30 bg-background px-3 font-montserrat text-base text-foreground outline-none transition-colors focus:border-[hsl(0_82%_18%)] md:h-12"
+                placeholder="Телефон или Telegram"
+                aria-label="Телефон или Telegram"
+              />
+              <input
+                value={extraContact}
+                onChange={(event) => setExtraContact(event.target.value)}
+                className="h-11 border-2 border-foreground/30 bg-background px-3 font-montserrat text-base text-foreground outline-none transition-colors focus:border-[hsl(0_82%_18%)] md:h-12"
+                placeholder="Instagram / доп. контакт"
+                aria-label="Дополнительный контакт"
+              />
+            </div>
+
+            <div className="mt-5 flex flex-col items-start gap-3 md:mt-6 md:flex-row md:items-center">
+              <button
+                type="button"
+                onClick={sendResults}
+                disabled={!canSendResults || isSending}
+                className={`inline-flex items-center justify-center border-2 px-8 py-4 font-montserrat text-base font-semibold uppercase tracking-[0.08em] transition-colors ${
+                  canSendResults
+                    ? "border-[hsl(71_33%_23%)] bg-[hsl(71_33%_23%)] text-background hover:bg-background hover:text-[hsl(71_33%_23%)] disabled:cursor-not-allowed disabled:border-foreground/30 disabled:bg-foreground/15 disabled:text-foreground/50"
+                    : "cursor-not-allowed border-foreground/30 bg-foreground/15 text-foreground/50"
+                }`}
+              >
+                {isSending ? "отправка..." : "отправить результат"}
+              </button>
+              {!canSendResults && (
+                <p className="font-montserrat text-sm text-foreground/65">
+                  Укажите хотя бы один контакт для отправки.
+                </p>
+              )}
+              {sendStatus === "success" && (
+                <p className="font-montserrat text-sm text-[hsl(71_33%_23%)]">
+                  Заявка отправлена. Мы свяжемся с вами и подберем группу.
+                </p>
+              )}
+              {sendStatus === "error" && (
+                <p className="font-montserrat text-sm text-[hsl(0_82%_18%)]">
+                  Не удалось отправить заявку: {sendError}
+                </p>
+              )}
+            </div>
+          </section>
+        </div>
+      )}
     </div>
   );
 };

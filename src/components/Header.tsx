@@ -3,22 +3,49 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+
+type NavItem = {
+  label: string;
+  href?: string;
+  onClick?: () => void;
+};
 
 const Header = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      const nextScrolled = window.scrollY > 20;
+      setIsScrolled((prev) => (prev === nextScrolled ? prev : nextScrolled));
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navItems = [
+  const goToLevelTestCta = () => {
+    if (location.pathname.startsWith("/level-test")) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+
+    if (location.pathname === "/") {
+      const element = document.getElementById("level-test-cta");
+      if (!element) {
+        return;
+      }
+
+      element.scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
+    }
+
+    navigate({ pathname: "/", hash: "#level-test-cta" });
+  };
+
+  const navItems: NavItem[] = [
     {
       label: "О НАС",
       href: "/"
@@ -26,6 +53,10 @@ const Header = () => {
     {
       label: "ОБУЧЕНИЕ",
       href: "/courses"
+    },
+    {
+      label: "ТЕСТ УРОВНЯ",
+      onClick: goToLevelTestCta
     },
     {
       label: "КОНТАКТЫ",
@@ -38,11 +69,11 @@ const Header = () => {
   };
 
   return (
-    <header className="fixed top-3.5 left-0 right-0 z-50 transition-all duration-300">
+    <header className="fixed top-3.5 left-0 right-0 z-50 transition-colors duration-200 md:transition-all md:duration-300">
       <div className="container mx-auto px-4 md:px-6">
         <div
-          className={`flex items-center justify-between h-20 rounded-full border border-border/0 bg-background/80 backdrop-blur-md px-6 md:px-8 transition-all duration-300 ${
-            isScrolled ? "shadow-sm" : ""
+          className={`flex items-center justify-between h-20 rounded-full border border-border/0 bg-background/95 px-6 md:px-8 transition-colors duration-200 md:bg-background/80 md:backdrop-blur-md md:transition-all md:duration-300 ${
+            isScrolled ? "shadow-none md:shadow-sm" : ""
           }`}
         >
           {/* Left Logo */}
@@ -55,7 +86,17 @@ const Header = () => {
           {/* Center Navigation - Desktop */}
           <nav className="hidden md:flex items-center gap-8">
             {navItems.map(item => {
-              const isAnchor = item.href.startsWith("#");
+              const isAnchor = Boolean(item.href && item.href.startsWith("#"));
+              const onClick = () => {
+                if (item.onClick) {
+                  item.onClick();
+                  return;
+                }
+                if (item.href) {
+                  navigate(item.href);
+                }
+              };
+
               return isAnchor ? (
                 <a
                   key={item.label}
@@ -67,7 +108,7 @@ const Header = () => {
               ) : (
                 <button
                   key={item.label}
-                  onClick={() => navigate(item.href)}
+                  onClick={onClick}
                   className="font-montserrat text-sm font-medium text-foreground/80 hover:text-foreground transition-colors uppercase tracking-wide"
                 >
                   {item.label}
@@ -92,7 +133,23 @@ const Header = () => {
               <SheetContent side="right" className="w-[280px] sm:w-[350px]">
                 <nav className="flex flex-col gap-6 mt-8">
                   {navItems.map(item => {
-                    const isAnchor = item.href.startsWith("#");
+                    const isAnchor = Boolean(item.href && item.href.startsWith("#"));
+                    const onClick = () => {
+                      handleNavClick();
+
+                      if (item.onClick) {
+                        window.setTimeout(() => {
+                          item.onClick?.();
+                        }, 0);
+                        return;
+                      }
+                      if (item.href) {
+                        window.setTimeout(() => {
+                          navigate(item.href);
+                        }, 0);
+                      }
+                    };
+
                     return isAnchor ? (
                       <a
                         key={item.label}
@@ -105,10 +162,7 @@ const Header = () => {
                     ) : (
                       <button
                         key={item.label}
-                        onClick={() => {
-                          navigate(item.href);
-                          handleNavClick();
-                        }}
+                        onClick={onClick}
                         className="font-montserrat text-base font-medium text-foreground hover:text-primary transition-colors uppercase tracking-wide text-left"
                       >
                         {item.label}
