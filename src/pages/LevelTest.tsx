@@ -199,11 +199,7 @@ const LevelTest = () => {
             <p className="font-montserrat text-sm uppercase tracking-[0.16em] text-background/80 md:text-base">
               тест уровня
             </p>
-            <h1 className="mt-3 font-main text-4xl leading-[0.95] md:text-7xl">допиши пропущенные слова</h1>
-            <p className="mt-4 max-w-3xl font-montserrat text-sm text-background/90 md:text-base">
-              В каждом задании дан полный перевод на русском и английская фраза с пропуском. Впишите
-              недостающее слово (или слова).
-            </p>
+            <h1 className="mt-3 font-main text-4xl leading-[0.95] md:text-7xl">заполните пропуски</h1>
           </div>
 
           <div className="mt-6 space-y-4 md:mt-8 md:space-y-5">
@@ -225,7 +221,7 @@ const LevelTest = () => {
                           value={inputs[questionIndex][answerIndex]}
                           disabled={confirmedQuestions[questionIndex]}
                           onChange={(event) => onChangeAnswer(questionIndex, answerIndex, event.target.value)}
-                          className="h-10 w-[110px] border-2 border-foreground/30 bg-background px-2 text-center font-montserrat text-base font-semibold text-foreground outline-none transition-colors focus:border-[hsl(0_82%_18%)] disabled:cursor-not-allowed disabled:border-foreground/20 disabled:bg-foreground/10 disabled:text-foreground/65 md:h-12 md:w-[140px] md:px-3 md:text-lg"
+                          className="h-11 w-[100px] border-2 border-foreground/30 bg-background px-2 text-center font-montserrat text-base font-semibold text-foreground outline-none transition-colors focus:border-[hsl(0_82%_18%)] disabled:cursor-not-allowed disabled:border-foreground/20 disabled:bg-foreground/10 disabled:text-foreground/65 md:h-12 md:w-[140px] md:px-3 md:text-lg"
                           aria-label={`Ответ ${answerIndex + 1} для вопроса ${question.id}`}
                         />
                       </div>
@@ -239,7 +235,7 @@ const LevelTest = () => {
                     <button
                       type="button"
                       onClick={() => confirmQuestion(questionIndex)}
-                      className="inline-flex items-center gap-2 border-2 border-[hsl(71_33%_23%)] bg-[hsl(71_33%_23%)] px-4 py-2 font-montserrat text-xs font-semibold uppercase tracking-[0.08em] text-background transition-colors hover:bg-background hover:text-[hsl(71_33%_23%)] md:text-sm"
+                      className="inline-flex w-full items-center justify-center gap-2 border-2 border-[hsl(71_33%_23%)] bg-[hsl(71_33%_23%)] px-4 py-3 font-montserrat text-sm font-semibold uppercase tracking-[0.08em] text-background transition-colors active:opacity-80 md:w-auto md:py-2 md:text-sm"
                     >
                       <Check className="h-4 w-4" />
                       подтвердить
@@ -273,14 +269,14 @@ const LevelTest = () => {
           )}
 
           {allQuestionsConfirmed && (
-            <div className="mt-8 flex flex-col items-start gap-4 md:mt-10 md:flex-row md:items-center">
+            <div className="mt-8 flex flex-col items-stretch gap-4 md:mt-10 md:flex-row md:items-center">
               <button
                 type="button"
                 onClick={() => {
                   setSubmitted(true);
                   setIsLeadModalOpen(true);
                 }}
-                className="inline-flex items-center justify-center border-2 border-[hsl(71_33%_23%)] bg-[hsl(71_33%_23%)] px-8 py-4 font-montserrat text-base font-semibold uppercase tracking-[0.08em] text-background transition-colors hover:bg-background hover:text-[hsl(71_33%_23%)]"
+                className="inline-flex w-full items-center justify-center border-2 border-[hsl(71_33%_23%)] bg-[hsl(71_33%_23%)] px-8 py-4 font-montserrat text-base font-semibold uppercase tracking-[0.08em] text-background transition-colors active:opacity-80 md:w-auto"
               >
                 проверить
               </button>
@@ -297,7 +293,7 @@ const LevelTest = () => {
             <button
               type="button"
               onClick={() => setIsLeadModalOpen(true)}
-              className="mt-8 inline-flex items-center justify-center border-2 border-[hsl(0_82%_18%)] bg-[hsl(0_82%_18%)] px-7 py-3 font-montserrat text-sm font-semibold uppercase tracking-[0.08em] text-background transition-colors hover:bg-background hover:text-[hsl(0_82%_18%)] md:mt-10"
+              className="mt-4 inline-flex w-full items-center justify-center border-2 border-[hsl(0_82%_18%)] bg-[hsl(0_82%_18%)] px-7 py-4 font-montserrat text-sm font-semibold uppercase tracking-[0.08em] text-background transition-colors active:opacity-80 md:mt-6 md:w-auto"
             >
               отправить результат нам
             </button>
@@ -306,8 +302,8 @@ const LevelTest = () => {
       </main>
 
       {submitted && isLeadModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-foreground/55 px-4 py-6 backdrop-blur-[2px]">
-          <section className="w-full max-w-3xl border-2 border-foreground/25 bg-background p-5 shadow-2xl md:p-7">
+        <div className="fixed inset-0 z-50 flex items-end justify-center bg-foreground/55 px-0 py-0 backdrop-blur-[2px] sm:items-center sm:px-4 sm:py-6">
+          <section className="w-full max-w-3xl max-h-[92svh] overflow-y-auto border-2 border-foreground/25 bg-background p-5 shadow-2xl md:p-7 rounded-t-2xl sm:rounded-none">
             <div className="flex items-start justify-between gap-4">
               <div>
                 <h2 className="font-main text-3xl leading-[0.95] text-foreground md:text-5xl">
@@ -354,14 +350,14 @@ const LevelTest = () => {
               />
             </div>
 
-            <div className="mt-5 flex flex-col items-start gap-3 md:mt-6 md:flex-row md:items-center">
+            <div className="mt-5 flex flex-col items-stretch gap-3 md:mt-6 md:flex-row md:items-center">
               <button
                 type="button"
                 onClick={sendResults}
                 disabled={!canSendResults || isSending}
-                className={`inline-flex items-center justify-center border-2 px-8 py-4 font-montserrat text-base font-semibold uppercase tracking-[0.08em] transition-colors ${
+                className={`inline-flex w-full items-center justify-center border-2 px-8 py-4 font-montserrat text-base font-semibold uppercase tracking-[0.08em] transition-colors active:opacity-80 md:w-auto ${
                   canSendResults
-                    ? "border-[hsl(71_33%_23%)] bg-[hsl(71_33%_23%)] text-background hover:bg-background hover:text-[hsl(71_33%_23%)] disabled:cursor-not-allowed disabled:border-foreground/30 disabled:bg-foreground/15 disabled:text-foreground/50"
+                    ? "border-[hsl(71_33%_23%)] bg-[hsl(71_33%_23%)] text-background disabled:cursor-not-allowed disabled:border-foreground/30 disabled:bg-foreground/15 disabled:text-foreground/50"
                     : "cursor-not-allowed border-foreground/30 bg-foreground/15 text-foreground/50"
                 }`}
               >

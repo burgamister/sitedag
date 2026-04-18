@@ -17,6 +17,7 @@ export default {
         'montserrat': ['Manrope', 'Inter', 'system-ui', 'sans-serif'],
         'main': ['Manrope', 'Inter', 'system-ui', 'sans-serif'],
         'alata': ['Alata', 'sans-serif'],
+        'handwrite': ['Caveat', 'cursive'],
       },
       colors: {
         border: "hsl(var(--border))",

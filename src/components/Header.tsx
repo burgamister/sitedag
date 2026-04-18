@@ -130,8 +130,8 @@ const Header = () => {
                   <Menu className="w-6 h-6" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-[280px] sm:w-[350px]">
-                <nav className="flex flex-col gap-6 mt-8">
+              <SheetContent side="right" className="w-[300px] sm:w-[360px]">
+                <nav className="flex flex-col gap-1 mt-6">
                   {navItems.map(item => {
                     const isAnchor = Boolean(item.href && item.href.startsWith("#"));
                     const onClick = () => {
@@ -155,7 +155,7 @@ const Header = () => {
                         key={item.label}
                         href={item.href}
                         onClick={handleNavClick}
-                        className="font-montserrat text-base font-medium text-foreground hover:text-primary transition-colors uppercase tracking-wide"
+                        className="flex items-center min-h-[56px] px-2 font-montserrat text-lg font-medium text-foreground hover:text-primary transition-colors uppercase tracking-wide border-b border-border/40 last:border-0"
                       >
                         {item.label}
                       </a>
@@ -163,14 +163,14 @@ const Header = () => {
                       <button
                         key={item.label}
                         onClick={onClick}
-                        className="font-montserrat text-base font-medium text-foreground hover:text-primary transition-colors uppercase tracking-wide text-left"
+                        className="flex items-center min-h-[56px] px-2 font-montserrat text-lg font-medium text-foreground hover:text-primary transition-colors uppercase tracking-wide text-left border-b border-border/40 last:border-0 w-full"
                       >
                         {item.label}
                       </button>
                     );
                   })}
-                  <div className="border-t border-border pt-6">
-                    <Button variant="ghost" className="font-montserrat text-sm font-medium uppercase w-full justify-start">
+                  <div className="pt-4">
+                    <Button variant="ghost" className="font-montserrat text-sm font-medium uppercase w-full justify-start h-12">
                       EN
                     </Button>
                   </div>
