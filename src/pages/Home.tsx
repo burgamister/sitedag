@@ -1,6 +1,8 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import logoFull from "@/assets/Лого-+-знак-с-дескриптором-(зел).png";
+import logoFull from "@/assets/logo-full.png";
+import markerStrokeRed from "@/assets/marker-stroke-red.png";
+import markerStroke from "@/assets/marker-stroke.png";
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -8,14 +10,32 @@ const whyDagEnglishItems = [
   {
     id: "01",
     title: "атмосфера как дома",
-    text: "У нас на уроках ты чувствуешь себя как дома. Можем чай попить, фильмы посмотерть. Главное много не наглеть!",
+    text: "У нас на уроках ты чувствуешь себя как дома. Можем чай попить, фильмы посмотреть. Главное много не наглеть!",
   },
   {
     id: "02",
     title: "упор на практику",
-    text: "Уроки проводятся на английском языке, чтоб вы привыкали к языку. Не переживайте спрашивать учителя если не понимаете о чем идет речь.",
+    text: "Уроки проводятся на английском языке, чтоб вы привыкали к языку. Не переживайте спрашивать учителя, если не понимаете о чем идет речь.",
   },
 ];
+
+const createLessonMarkerStyle = (markerUrl: string) => ({
+  backgroundImage: `url(${markerUrl})`,
+  backgroundRepeat: "no-repeat" as const,
+  backgroundPosition: "center" as const,
+  backgroundSize: "105%",
+});
+
+const individualLessonMarkerStyle = createLessonMarkerStyle(markerStrokeRed);
+const groupLessonMarkerStyle = createLessonMarkerStyle(markerStroke);
+const loweredIndividualLessonMarkerStyle = {
+  ...individualLessonMarkerStyle,
+  backgroundPosition: "center 45%" as const,
+};
+const lessonTextClassName =
+  "relative z-10 max-w-[10.5ch] px-2 font-main text-[clamp(1.55rem,4vw+0.7rem,3.35rem)] font-bold leading-[0.9] tracking-[-0.02em] text-background text-balance sm:max-w-[11.5ch]";
+const individualLessonTextClassName =
+  "relative z-10 max-w-[11.5ch] px-2 font-main text-[clamp(1.35rem,3.1vw+0.65rem,2.95rem)] font-bold leading-[0.92] tracking-[-0.03em] text-background whitespace-nowrap";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -38,9 +58,7 @@ const Home = () => {
     <div className="min-h-screen bg-background">
       <Header />
 
-      {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
-        {/* Sharp Mountain SVG Background */}
         <div className="absolute bottom-0 left-0 right-0 pointer-events-none">
           <svg viewBox="0 0 1440 320" className="w-full h-auto text-accent/30" preserveAspectRatio="none">
             <path fill="currentColor" d="M0,320L240,280L360,160L480,200L600,120L720,180L840,100L960,140L1080,80L1200,160L1320,120L1440,180L1440,320L0,320Z" />
@@ -50,12 +68,10 @@ const Home = () => {
           </svg>
         </div>
 
-        {/* Center Logo */}
         <div className="relative z-20 flex items-center justify-center">
           <img src={logoFull} alt="DagEnglish" className="w-auto h-32 md:h-48 lg:h-64" />
         </div>
 
-        {/* Scroll Indicator */}
         <div className="absolute bottom-8 left-1/2 z-20 hidden -translate-x-1/2 animate-bounce sm:block">
           <div className="w-6 h-10 border-2 border-foreground/30 rounded-full flex items-start justify-center p-2">
             <div className="w-1 h-3 bg-foreground/50 rounded-full"></div>
@@ -63,7 +79,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* About Us Section */}
       <section id="about" className="relative bg-background px-5 py-20 md:px-8 md:py-28">
         <div className="mx-auto w-full max-w-[1600px] text-center">
           <div className="mx-auto max-w-[1400px]">
@@ -87,63 +102,58 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Prices Section */}
       <section id="prices" className="relative bg-background px-4 py-12 md:px-6 md:py-20">
         <div className="container relative z-10 mx-auto max-w-6xl">
-          <div className="mb-8 text-center md:mb-12">
+          <div className="mb-12 text-center md:mb-16">
             <p className="font-montserrat text-4xl font-bold tracking-tight text-foreground md:text-6xl">Занятия</p>
           </div>
 
-          {/* Mobile cards */}
-          <div className="flex flex-col gap-3 md:hidden">
+          <div className="flex flex-col gap-5 md:hidden">
             <button
               type="button"
               onClick={() => navigate("/courses")}
-              className="relative flex h-[140px] w-full items-end justify-start border border-foreground/25 bg-background p-5 active:bg-foreground/5 transition-colors"
+              className="group relative flex min-h-[112px] w-full items-center justify-center overflow-hidden px-4 py-5 text-center active:scale-[0.99] transition-transform sm:min-h-[120px] sm:py-6"
               aria-label="индивидуально"
+              style={loweredIndividualLessonMarkerStyle}
             >
-              <span className="font-main text-3xl font-bold tracking-tight text-foreground">индивидуально</span>
+              <span className={individualLessonTextClassName}>индивидуально</span>
             </button>
             <button
               type="button"
               onClick={() => navigate("/courses")}
-              className="relative flex h-[140px] w-full items-end justify-start border border-foreground/25 bg-background p-5 active:bg-foreground/5 transition-colors"
+              className="group relative flex min-h-[112px] w-full items-center justify-center overflow-hidden px-4 py-5 text-center active:scale-[0.99] transition-transform sm:min-h-[120px] sm:py-6"
               aria-label="группа"
+              style={groupLessonMarkerStyle}
             >
-              <span className="font-main text-3xl font-bold tracking-tight text-foreground">группа</span>
+              <span className={lessonTextClassName}>группа</span>
             </button>
           </div>
 
-          <div className="hidden md:grid md:grid-cols-2 md:gap-3">
-            {/* Card 1 — Индивидуально */}
+          <div className="hidden md:grid md:grid-cols-2 md:items-stretch md:gap-8">
             <button
               type="button"
               onClick={() => navigate("/courses")}
-              className="group relative h-[220px] w-full border border-foreground/25 bg-background md:h-[280px]"
+              className="group relative flex min-h-[152px] w-full items-center justify-center overflow-hidden px-6 py-7 text-center active:scale-[0.99] transition-transform lg:min-h-[180px] lg:px-8 lg:py-8"
               aria-label="индивидуально"
+              style={loweredIndividualLessonMarkerStyle}
             >
-              <span className="absolute bottom-6 left-6 font-main text-2xl font-bold tracking-tight text-foreground md:bottom-8 md:left-8 md:text-4xl">
-                индивидуально
-              </span>
+              <span className={individualLessonTextClassName}>индивидуально</span>
             </button>
 
-            {/* Card 2 — Группа */}
             <button
               type="button"
               onClick={() => navigate("/courses")}
-              className="group relative h-[220px] w-full border border-foreground/25 bg-background md:h-[280px]"
+              className="group relative flex min-h-[152px] w-full items-center justify-center overflow-hidden px-6 py-7 text-center active:scale-[0.99] transition-transform lg:min-h-[180px] lg:px-8 lg:py-8"
               aria-label="группа"
+              style={groupLessonMarkerStyle}
             >
-              <span className="absolute bottom-6 left-6 font-main text-2xl font-bold tracking-tight text-foreground md:bottom-8 md:left-8 md:text-4xl">
-                группа
-              </span>
+              <span className={lessonTextClassName}>группа</span>
             </button>
           </div>
         </div>
       </section>
 
-      {/* Why DagEnglish Section */}
-      <section id="why-us" className="bg-background px-4 py-14 md:px-6 md:py-20">
+<section id="why-us" className="bg-background px-4 py-14 md:px-6 md:py-20">
         <div className="mx-auto max-w-6xl">
           <div className="mb-10 max-w-xl md:mb-14">
             <h2 className="font-main text-5xl font-bold leading-[0.9] tracking-tight text-foreground md:text-7xl">
@@ -159,7 +169,7 @@ const Home = () => {
 
           <div className="flex flex-col gap-3">
             {/* Card 01 — light */}
-            <article className="relative overflow-hidden border border-foreground/10 bg-background">
+            <article className="relative overflow-hidden rounded-2xl border border-foreground/10 bg-background">
               <span
                 aria-hidden="true"
                 className="pointer-events-none absolute right-0 top-0 select-none font-main text-[clamp(7rem,18vw,14rem)] font-bold leading-none text-foreground/[0.04]"
@@ -181,7 +191,7 @@ const Home = () => {
             </article>
 
             {/* Card 02 — dark */}
-            <article className="relative overflow-hidden bg-[hsl(71_33%_23%)]">
+            <article className="relative overflow-hidden rounded-2xl bg-[hsl(71_33%_23%)]">
               <span
                 aria-hidden="true"
                 className="pointer-events-none absolute left-0 top-0 select-none font-main text-[clamp(7rem,18vw,14rem)] font-bold leading-none text-background/[0.06]"
@@ -204,7 +214,7 @@ const Home = () => {
           </div>
         </div>
       </section>
-
+ 
       <section id="level-test-cta" className="bg-background px-4 pb-6 md:px-6 md:pb-10">
         <div className="mx-auto max-w-6xl">
           <button

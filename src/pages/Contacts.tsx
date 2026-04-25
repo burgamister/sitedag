@@ -11,13 +11,13 @@ const Contacts = () => {
       <main className="relative z-10 flex min-h-[100svh] items-center justify-center px-4 pb-10 pt-24 sm:px-6 md:pt-28">
         <section className="flex w-full max-w-4xl flex-col items-center justify-center gap-10 text-center md:gap-12">
           <div className="flex flex-col items-center gap-4 md:gap-5">
-            <p className="font-montserrat text-[1rem] font-semibold uppercase tracking-[0.01em] text-foreground/80 md:text-lg">
+            <p className="font-montserrat text-lg font-semibold uppercase tracking-[0.01em] text-foreground/80 md:text-xl">
               Улица Ирчи Казака, 48, 4 этаж
             </p>
-            <a href="mailto:akb.godekan@mail.ru" className={`${interactiveLinkClass} text-xl md:text-2xl`}>
+            <a href="mailto:akb.godekan@mail.ru" className={`${interactiveLinkClass} text-lg md:text-xl`}>
               <span className="relative z-10">dagenglish@mail.ru</span>
             </a>
-            <a href="tel:+79288699696" className={`${interactiveLinkClass} text-xl md:text-2xl`}>
+            <a href="tel:+79288699696" className={`${interactiveLinkClass} text-lg md:text-xl`}>
               <span className="relative z-10">+7 (960) 409 99 05</span>
             </a>
           </div>
