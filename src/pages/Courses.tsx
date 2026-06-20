@@ -25,7 +25,7 @@ const courses: {
     subtitle: "Максимум внимания и программа под ваши цели",
     description:
       "Подходит, если нужен быстрый прогресс, гибкое расписание и прицельная работа над слабыми зонами.",
-    price: "1 500 ₽",
+    price: "2 000 ₽",
     priceLabel: "за занятие",
     icon: UserRound,
     features: [
@@ -41,7 +41,7 @@ const courses: {
     subtitle: "Живой формат с динамикой и разговорной практикой",
     description:
       "Подходит, если вам комфортнее учиться в команде, говорить больше и получать мотивацию от группы.",
-    price: "7 000 ₽",
+    price: "8 000 ₽",
     priceLabel: "в месяц",
     icon: Users,
     features: [
@@ -57,9 +57,11 @@ const Courses = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-background px-4 pb-24 pt-28 md:px-6 md:pb-28 md:pt-32">
+    <div className="min-h-[100svh] bg-background px-4 pb-20 pt-28 sm:px-5 md:px-6 md:pb-28 md:pt-32">
       <Header />
-      <section className="mx-auto grid max-w-6xl grid-cols-1 gap-7 md:grid-cols-2">
+      <section className="mx-auto max-w-6xl">
+
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-7">
         {courses.map((course) => {
           const Icon = course.icon;
           const isIndividual = course.id === "individual";
@@ -72,7 +74,7 @@ const Courses = () => {
           return (
             <article
               key={course.id}
-              className="group relative overflow-hidden border-2 border-foreground/20 bg-background p-7 shadow-[8px_8px_0_hsl(71_33%_23%/0.16)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[12px_12px_0_hsl(0_82%_18%/0.2)] md:p-9"
+              className="group relative overflow-hidden rounded-[1.5rem] border-2 border-foreground/15 bg-background p-5 transition-colors duration-300 hover:border-foreground/35 md:rounded-[2rem] md:p-8"
             >
               <span
                 aria-hidden="true"
@@ -81,14 +83,14 @@ const Courses = () => {
 
               <div className="relative z-10 mb-6 flex items-start justify-between gap-4">
                 <div className="pr-2">
-                  <h2 className={`font-main text-3xl font-bold tracking-[0.01em] md:text-4xl ${accentTextClass}`}>
+                  <h2 className={`font-main text-[2.35rem] font-bold leading-[0.9] tracking-[-0.03em] md:text-5xl ${accentTextClass}`}>
                     {course.title}
                   </h2>
                   <p className="mt-2 font-montserrat text-sm text-foreground/70 md:text-base">
                     {course.subtitle}
                   </p>
                 </div>
-                <div className={`flex h-14 w-14 items-center justify-center border border-foreground/35 ${accentSoftClass}`}>
+                <div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-foreground/20 md:h-14 md:w-14 ${accentSoftClass}`}>
                   <Icon className={`h-7 w-7 ${accentTextClass}`} />
                 </div>
               </div>
@@ -111,12 +113,12 @@ const Courses = () => {
                 })}
               </ul>
 
-              <div className="relative z-10 flex items-end justify-between border-t border-foreground/20 pt-6">
+              <div className="relative z-10 flex flex-col gap-5 border-t border-foreground/15 pt-6 sm:flex-row sm:items-end sm:justify-between">
                 <div>
                   <p className="font-montserrat text-xs uppercase tracking-wide text-foreground/55">{course.priceLabel}</p>
                   <p className={`font-main text-4xl font-bold leading-none md:text-5xl ${accentTextClass}`}>{course.price}</p>
                 </div>
-                <Button onClick={() => navigate("/contacts")} className={`group/button gap-2 rounded-none px-5 py-2.5 text-white ${buttonClass}`}>
+                <Button onClick={() => navigate("/level-test-intro")} className={`group/button min-h-[52px] w-full gap-2 rounded-[1rem] px-5 py-2.5 text-white sm:w-auto ${buttonClass}`}>
                   Записаться
                   <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/button:translate-x-1" />
                 </Button>
@@ -124,6 +126,7 @@ const Courses = () => {
             </article>
           );
         })}
+        </div>
       </section>
     </div>
   );

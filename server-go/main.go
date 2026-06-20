@@ -24,6 +24,7 @@ type config struct {
 }
 
 type leadRequest struct {
+	LeadType         string         `json:"leadType"`
 	Name             string         `json:"name"`
 	PrimaryContact   string         `json:"primaryContact"`
 	SecondaryContact string         `json:"secondaryContact"`
@@ -201,6 +202,9 @@ func validateLead(req leadRequest) error {
 	if strings.TrimSpace(req.PrimaryContact) == "" && strings.TrimSpace(req.SecondaryContact) == "" {
 		return errors.New("at least one contact is required")
 	}
+	if strings.TrimSpace(req.LeadType) == "quick_contact" {
+		return nil
+	}
 	if req.Score.Total <= 0 {
 		return errors.New("score.total must be greater than 0")
 	}
@@ -222,6 +226,10 @@ func formatLeadMessage(req leadRequest) string {
 	secondary := strings.TrimSpace(req.SecondaryContact)
 	if secondary == "" {
 		secondary = "-"
+	}
+
+	if strings.TrimSpace(req.LeadType) == "quick_contact" {
+		return fmt.Sprintf("Быстрая заявка без теста\n\nИмя: %s\nКонтакт: %s\n", name, primary)
 	}
 
 	var b strings.Builder

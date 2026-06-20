@@ -190,21 +190,21 @@ const LevelTest = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-[100svh] bg-background">
       <Header />
 
-      <main className="px-4 pb-16 pt-24 md:px-6 md:pb-24 md:pt-28">
-        <section className="mx-auto max-w-6xl">
-          <div className="border-2 border-foreground/20 bg-[hsl(71_33%_23%)] px-6 py-8 text-background md:px-10 md:py-10">
+      <main className="px-4 pb-14 pt-28 sm:px-5 md:px-6 md:pb-24 md:pt-32">
+        <section className="mx-auto max-w-4xl">
+          <div className="rounded-[1.75rem] bg-[hsl(71_33%_23%)] px-5 py-7 text-background shadow-[10px_10px_0_hsl(0_82%_18%/0.14)] md:rounded-[2rem] md:px-10 md:py-10">
             <p className="font-montserrat text-sm uppercase tracking-[0.16em] text-background/80 md:text-base">
               тест уровня
             </p>
-            <h1 className="mt-3 font-main text-4xl leading-[0.95] md:text-7xl">заполните пропуски</h1>
+            <h1 className="mt-3 font-main text-[clamp(2.7rem,12vw,4.6rem)] font-bold leading-[0.9] tracking-[-0.04em] md:text-7xl">заполните пропуски</h1>
           </div>
 
           <div className="mt-6 space-y-4 md:mt-8 md:space-y-5">
             {questions.slice(0, unlockedQuestions).map((question, questionIndex) => (
-              <article key={question.id} className="border-2 border-foreground/20 bg-background p-5 md:p-6">
+              <article key={question.id} className="rounded-[1.5rem] border-2 border-foreground/15 bg-background p-4 shadow-[6px_6px_0_hsl(71_33%_23%/0.08)] md:p-6">
                 <p className="font-montserrat text-xs uppercase tracking-[0.14em] text-foreground/55">
                   вопрос {question.id}
                 </p>
@@ -212,7 +212,7 @@ const LevelTest = () => {
                   {question.russian}
                 </p>
 
-                <div className="mt-4 rounded-xl border border-foreground/15 bg-foreground/[0.02] p-3 md:p-4">
+                <div className="mt-4 rounded-[1.1rem] bg-foreground/[0.04] p-3 md:p-4">
                   <div className="flex flex-wrap items-center gap-x-2 gap-y-3 font-montserrat text-[15px] leading-relaxed text-foreground/85 md:text-lg">
                     {question.answers.map((_, answerIndex) => (
                       <div key={`${question.id}-${answerIndex}`} className="contents">
@@ -221,7 +221,7 @@ const LevelTest = () => {
                           value={inputs[questionIndex][answerIndex]}
                           disabled={confirmedQuestions[questionIndex]}
                           onChange={(event) => onChangeAnswer(questionIndex, answerIndex, event.target.value)}
-                          className="h-11 w-[100px] border-2 border-foreground/30 bg-background px-2 text-center font-montserrat text-base font-semibold text-foreground outline-none transition-colors focus:border-[hsl(0_82%_18%)] disabled:cursor-not-allowed disabled:border-foreground/20 disabled:bg-foreground/10 disabled:text-foreground/65 md:h-12 md:w-[140px] md:px-3 md:text-lg"
+                          className="h-11 w-[96px] rounded-none border-2 border-foreground/25 bg-background px-2 text-center font-montserrat text-base font-semibold text-foreground outline-none transition-colors focus:border-[hsl(0_82%_18%)] disabled:cursor-not-allowed disabled:border-foreground/15 disabled:bg-foreground/10 disabled:text-foreground/65 md:h-12 md:w-[140px] md:px-3 md:text-lg"
                           aria-label={`Ответ ${answerIndex + 1} для вопроса ${question.id}`}
                         />
                       </div>
@@ -235,7 +235,7 @@ const LevelTest = () => {
                     <button
                       type="button"
                       onClick={() => confirmQuestion(questionIndex)}
-                      className="inline-flex w-full items-center justify-center gap-2 border-2 border-[hsl(71_33%_23%)] bg-[hsl(71_33%_23%)] px-4 py-3 font-montserrat text-sm font-semibold uppercase tracking-[0.08em] text-background transition-colors active:opacity-80 md:w-auto md:py-2 md:text-sm"
+                      className="inline-flex min-h-[50px] w-full items-center justify-center gap-2 rounded-[1rem] border-2 border-[hsl(71_33%_23%)] bg-[hsl(71_33%_23%)] px-4 py-3 font-montserrat text-sm font-semibold uppercase tracking-[0.08em] text-background transition-colors active:opacity-80 md:min-h-0 md:w-auto md:py-2 md:text-sm"
                     >
                       <Check className="h-4 w-4" />
                       подтвердить
@@ -276,7 +276,7 @@ const LevelTest = () => {
                   setSubmitted(true);
                   setIsLeadModalOpen(true);
                 }}
-                className="inline-flex w-full items-center justify-center border-2 border-[hsl(71_33%_23%)] bg-[hsl(71_33%_23%)] px-8 py-4 font-montserrat text-base font-semibold uppercase tracking-[0.08em] text-background transition-colors active:opacity-80 md:w-auto"
+                className="inline-flex min-h-[56px] w-full items-center justify-center rounded-[1.1rem] border-2 border-[hsl(71_33%_23%)] bg-[hsl(71_33%_23%)] px-8 py-4 font-montserrat text-base font-semibold uppercase tracking-[0.08em] text-background transition-colors active:opacity-80 md:w-auto"
               >
                 проверить
               </button>
@@ -293,7 +293,7 @@ const LevelTest = () => {
             <button
               type="button"
               onClick={() => setIsLeadModalOpen(true)}
-              className="mt-4 inline-flex w-full items-center justify-center border-2 border-[hsl(0_82%_18%)] bg-[hsl(0_82%_18%)] px-7 py-4 font-montserrat text-sm font-semibold uppercase tracking-[0.08em] text-background transition-colors active:opacity-80 md:mt-6 md:w-auto"
+              className="mt-4 inline-flex min-h-[56px] w-full items-center justify-center rounded-[1.1rem] border-2 border-[hsl(0_82%_18%)] bg-[hsl(0_82%_18%)] px-7 py-4 font-montserrat text-sm font-semibold uppercase tracking-[0.08em] text-background transition-colors active:opacity-80 md:mt-6 md:w-auto"
             >
               отправить результат нам
             </button>
@@ -303,14 +303,14 @@ const LevelTest = () => {
 
       {submitted && isLeadModalOpen && (
         <div className="fixed inset-0 z-50 flex items-end justify-center bg-foreground/55 px-0 py-0 backdrop-blur-[2px] sm:items-center sm:px-4 sm:py-6">
-          <section className="w-full max-w-3xl max-h-[92svh] overflow-y-auto border-2 border-foreground/25 bg-background p-5 shadow-2xl md:p-7 rounded-t-2xl sm:rounded-none">
-            <div className="flex items-start justify-between gap-4">
-              <div>
-                <h2 className="font-main text-3xl leading-[0.95] text-foreground md:text-5xl">
+          <section className="max-h-[90svh] w-full max-w-xl overflow-y-auto rounded-t-[1.4rem] border-0 border-foreground/25 bg-background p-4 pb-[calc(1rem+env(safe-area-inset-bottom))] shadow-2xl sm:rounded-[1.5rem] sm:border-2 sm:p-5 sm:pb-5 md:p-7">
+            <div className="flex items-start justify-between gap-3">
+              <div className="min-w-0">
+                <h2 className="font-main text-[2rem] font-bold leading-[0.9] text-foreground sm:text-[2.35rem] md:text-5xl">
                   отправить результат нам
                 </h2>
-                <p className="mt-2 max-w-2xl font-montserrat text-sm text-foreground/75 md:text-base">
-                  Оставьте контакт, отправьте результаты и мы свяжемся с вами.
+                <p className="mt-3 max-w-2xl font-montserrat text-[0.92rem] leading-snug text-foreground/75 sm:text-sm md:text-base">
+                  Оставьте контакт, отправьте результаты и мы свяжемся с Вами.
                 </p>
                 <p className="mt-3 inline-flex items-center border border-[hsl(0_82%_18%/0.3)] bg-[hsl(0_82%_18%/0.06)] px-3 py-1 font-montserrat text-sm font-semibold uppercase tracking-[0.08em] text-[hsl(0_82%_18%)]">
                   результат: {score.ok}/{score.total}
@@ -319,43 +319,36 @@ const LevelTest = () => {
               <button
                 type="button"
                 onClick={() => setIsLeadModalOpen(false)}
-                className="inline-flex h-9 w-9 items-center justify-center border border-foreground/30 font-montserrat text-xl text-foreground/70 transition-colors hover:bg-foreground hover:text-background"
+                className="inline-flex h-10 w-10 shrink-0 items-center justify-center border border-foreground/30 font-montserrat text-xl text-foreground/70 transition-colors hover:bg-foreground hover:text-background"
                 aria-label="Закрыть"
               >
                 ×
               </button>
             </div>
 
-            <div className="mt-5 grid grid-cols-1 gap-3 md:mt-6 md:grid-cols-3 md:gap-4">
+            <div className="mt-5 grid gap-3 sm:mt-6">
               <input
                 value={studentName}
                 onChange={(event) => setStudentName(event.target.value)}
-                className="h-11 border-2 border-foreground/30 bg-background px-3 font-montserrat text-base text-foreground outline-none transition-colors focus:border-[hsl(0_82%_18%)] md:h-12"
-                placeholder="Имя (необязательно)"
+                className="h-12 w-full rounded-none border-2 border-foreground/30 bg-background px-3 font-montserrat text-base text-foreground outline-none transition-colors focus:border-[hsl(0_82%_18%)]"
+                placeholder="Имя"
                 aria-label="Имя"
               />
               <input
                 value={phoneOrTelegram}
                 onChange={(event) => setPhoneOrTelegram(event.target.value)}
-                className="h-11 border-2 border-foreground/30 bg-background px-3 font-montserrat text-base text-foreground outline-none transition-colors focus:border-[hsl(0_82%_18%)] md:h-12"
+                className="h-12 w-full rounded-none border-2 border-foreground/30 bg-background px-3 font-montserrat text-base text-foreground outline-none transition-colors focus:border-[hsl(0_82%_18%)]"
                 placeholder="Телефон или Telegram"
                 aria-label="Телефон или Telegram"
               />
-              <input
-                value={extraContact}
-                onChange={(event) => setExtraContact(event.target.value)}
-                className="h-11 border-2 border-foreground/30 bg-background px-3 font-montserrat text-base text-foreground outline-none transition-colors focus:border-[hsl(0_82%_18%)] md:h-12"
-                placeholder="Instagram / доп. контакт"
-                aria-label="Дополнительный контакт"
-              />
             </div>
 
-            <div className="mt-5 flex flex-col items-stretch gap-3 md:mt-6 md:flex-row md:items-center">
+            <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center">
               <button
                 type="button"
                 onClick={sendResults}
                 disabled={!canSendResults || isSending}
-                className={`inline-flex w-full items-center justify-center border-2 px-8 py-4 font-montserrat text-base font-semibold uppercase tracking-[0.08em] transition-colors active:opacity-80 md:w-auto ${
+                className={`inline-flex min-h-[54px] w-full items-center justify-center border-2 px-6 py-4 font-montserrat text-sm font-semibold uppercase tracking-[0.08em] transition-colors active:opacity-80 sm:w-auto sm:px-7 ${
                   canSendResults
                     ? "border-[hsl(71_33%_23%)] bg-[hsl(71_33%_23%)] text-background disabled:cursor-not-allowed disabled:border-foreground/30 disabled:bg-foreground/15 disabled:text-foreground/50"
                     : "cursor-not-allowed border-foreground/30 bg-foreground/15 text-foreground/50"

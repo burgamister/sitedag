@@ -26,23 +26,19 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const goToLevelTestCta = () => {
-    if (location.pathname.startsWith("/level-test")) {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-      return;
-    }
 
+  const goToPrices = () => {
     if (location.pathname === "/") {
-      const element = document.getElementById("level-test-cta");
+      const element = document.getElementById("prices");
       if (!element) {
         return;
       }
 
-      element.scrollIntoView({ behavior: "smooth", block: "center" });
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
       return;
     }
 
-    navigate({ pathname: "/", hash: "#level-test-cta" });
+    navigate({ pathname: "/", hash: "#prices" });
   };
 
   const navItems: NavItem[] = [
@@ -52,11 +48,7 @@ const Header = () => {
     },
     {
       label: "ОБУЧЕНИЕ",
-      href: "/courses"
-    },
-    {
-      label: "ТЕСТ УРОВНЯ",
-      onClick: goToLevelTestCta
+      onClick: goToPrices
     },
     {
       label: "КОНТАКТЫ",

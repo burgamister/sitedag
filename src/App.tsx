@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 import Index from "./pages/Index";
 import Courses from "./pages/Courses";
 import Contacts from "./pages/Contacts";
+import LevelTestIntro from "./pages/LevelTestIntro";
 import LevelTest from "./pages/LevelTest";
 import NotFound from "./pages/NotFound";
 import PageLoader from "./components/PageLoader";
@@ -24,6 +25,7 @@ const App = () => (
           <Route path="/" element={<Home />} />
           <Route path="/courses" element={<Courses />} />
           <Route path="/contacts" element={<Contacts />} />
+          <Route path="/level-test-intro" element={<LevelTestIntro />} />
           <Route path="/level-test" element={<LevelTest />} />
           <Route path="/old" element={<Index />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
