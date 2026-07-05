@@ -2,8 +2,8 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import logoFull from "@/assets/logo-full.png";
 import mountainsImage from "@/assets/image.png";
-import markerStrokeRed from "@/assets/marker-stroke-red.png";
-import markerStroke from "@/assets/marker-stroke.png";
+import markerStrokeRed from "@/assets/marker-stroke-red.webp";
+import markerStroke from "@/assets/marker-stroke.webp";
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 

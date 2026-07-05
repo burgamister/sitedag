@@ -8,27 +8,27 @@ const Footer = () => {
           <div className="flex items-start md:items-center gap-3">
             <MapPin className="w-4 h-4 text-primary flex-shrink-0 mt-1 md:mt-0" />
             <p className="text-foreground/70 text-xs md:text-sm">
-              367000, Россия, Махачкала, Улица Дахадаева 23А
+              Улица Ирчи Казака, 48, 4 этаж
             </p>
           </div>
 
           <div className="flex items-start md:items-center gap-3">
             <Mail className="w-4 h-4 text-primary flex-shrink-0 mt-1 md:mt-0" />
             <a 
-              href="mailto:info@dagenglish.com" 
+              href="mailto:dagenglish@mail.ru" 
               className="text-foreground/70 hover:text-primary transition-colors text-xs md:text-sm break-all"
             >
-              info@dagenglish.com
+              dagenglish@mail.ru
             </a>
           </div>
 
           <div className="flex items-start md:items-center gap-3">
             <Phone className="w-4 h-4 text-primary flex-shrink-0 mt-1 md:mt-0" />
             <a 
-              href="tel:+79288699696" 
+              href="tel:+79604099905" 
               className="text-foreground/70 hover:text-primary transition-colors text-xs md:text-sm"
             >
-              7 (928) 869-96-96
+              +7 (960) 409 99 05
             </a>
           </div>
         </div>
