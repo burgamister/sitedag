@@ -14,10 +14,10 @@ const Contacts = () => {
             <p className="font-montserrat text-lg font-semibold uppercase tracking-[0.01em] text-foreground/80 md:text-xl">
               Улица Ирчи Казака, 48, 4 этаж
             </p>
-            <a href="mailto:akb.godekan@mail.ru" className={`${interactiveLinkClass} text-lg md:text-xl`}>
+            <a href="mailto:dagenglish@mail.ru" className={`${interactiveLinkClass} text-lg md:text-xl`}>
               <span className="relative z-10">dagenglish@mail.ru</span>
             </a>
-            <a href="tel:+79288699696" className={`${interactiveLinkClass} text-lg md:text-xl`}>
+            <a href="tel:+79604099905" className={`${interactiveLinkClass} text-lg md:text-xl`}>
               <span className="relative z-10">+7 (960) 409 99 05</span>
             </a>
           </div>
