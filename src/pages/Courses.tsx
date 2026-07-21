@@ -2,59 +2,36 @@ import { useNavigate } from "react-router-dom";
 import { ArrowRight, BadgeCheck, CalendarDays, Clock3, MessageCircle, Target, UserRound, Users } from "lucide-react";
 import Header from "@/components/Header";
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/lib/i18n";
 import type { LucideIcon } from "lucide-react";
 
-type CourseFeature = {
-  text: string;
-  icon: LucideIcon;
+const featureIconMap: Record<string, LucideIcon> = {
+  "Персональный план обучения": Target,
+  "Personal learning plan": Target,
+  "Гибкий график занятий": CalendarDays,
+  "Flexible class schedule": CalendarDays,
+  "Урок 60 минут + домашняя практика": Clock3,
+  "60 min lesson + home practice": Clock3,
+  "Регулярная обратная связь от преподавателя": MessageCircle,
+  "Regular feedback from teacher": MessageCircle,
+  "3 занятия в неделю": CalendarDays,
+  "3 lessons per week": CalendarDays,
+  "До 6 человек в группе": Users,
+  "Up to 6 people per group": Users,
+  "Разговорные задания на каждом занятии": MessageCircle,
+  "Speaking tasks every lesson": MessageCircle,
+  "Мини-тесты и контроль прогресса": BadgeCheck,
+  "Mini-tests and progress tracking": BadgeCheck,
 };
 
-const courses: {
-  id: string;
-  title: string;
-  subtitle: string;
-  description: string;
-  price: string;
-  priceLabel: string;
-  icon: LucideIcon;
-  features: CourseFeature[];
-}[] = [
-  {
-    id: "individual",
-    title: "Индивидуально",
-    subtitle: "Максимум внимания и программа под ваши цели",
-    description:
-      "Подходит, если нужен быстрый прогресс, гибкое расписание и прицельная работа над слабыми зонами.",
-    price: "2 000 ₽",
-    priceLabel: "за занятие",
-    icon: UserRound,
-    features: [
-      { text: "Персональный план обучения", icon: Target },
-      { text: "Гибкий график занятий", icon: CalendarDays },
-      { text: "Урок 60 минут + домашняя практика", icon: Clock3 },
-      { text: "Регулярная обратная связь от преподавателя", icon: MessageCircle },
-    ],
-  },
-  {
-    id: "group",
-    title: "С группой",
-    subtitle: "Живой формат с динамикой и разговорной практикой",
-    description:
-      "Подходит, если вам комфортнее учиться в команде, говорить больше и получать мотивацию от группы.",
-    price: "8 000 ₽",
-    priceLabel: "в месяц",
-    icon: Users,
-    features: [
-      { text: "3 занятия в неделю", icon: CalendarDays },
-      { text: "До 6 человек в группе", icon: Users },
-      { text: "Разговорные задания на каждом занятии", icon: MessageCircle },
-      { text: "Мини-тесты и контроль прогресса", icon: BadgeCheck },
-    ],
-  },
-];
+const courseIconMap: Record<string, LucideIcon> = {
+  individual: UserRound,
+  group: Users,
+};
 
 const Courses = () => {
   const navigate = useNavigate();
+  const { t } = useLanguage();
 
   return (
     <div className="min-h-[100svh] bg-background px-4 pb-20 pt-28 sm:px-5 md:px-6 md:pb-28 md:pt-32">
@@ -62,8 +39,8 @@ const Courses = () => {
       <section className="mx-auto max-w-6xl">
 
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-7">
-        {courses.map((course) => {
-          const Icon = course.icon;
+        {t.courses.map((course) => {
+          const Icon = courseIconMap[course.id] || UserRound;
           const isIndividual = course.id === "individual";
           const accentTextClass = isIndividual ? "text-[hsl(0_82%_18%)]" : "text-[hsl(71_33%_23%)]";
           const accentSoftClass = isIndividual ? "bg-[hsl(0_82%_18%/0.1)]" : "bg-[hsl(71_33%_23%/0.12)]";
@@ -100,14 +77,14 @@ const Courses = () => {
               </p>
 
               <ul className="relative z-10 mb-8 space-y-3">
-                {course.features.map((item) => {
-                  const FeatureIcon = item.icon;
+                {course.features.map((text) => {
+                  const FeatureIcon = featureIconMap[text] || Target;
                   return (
-                    <li key={item.text} className="flex items-start gap-3">
+                    <li key={text} className="flex items-start gap-3">
                       <span className={`mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center ${accentSoftClass} ${accentTextClass}`}>
                         <FeatureIcon className="h-3.5 w-3.5" />
                       </span>
-                      <span className="font-montserrat text-sm text-foreground/80 md:text-base">{item.text}</span>
+                      <span className="font-montserrat text-sm text-foreground/80 md:text-base">{text}</span>
                     </li>
                   );
                 })}
@@ -119,7 +96,7 @@ const Courses = () => {
                   <p className={`font-main text-4xl font-bold leading-none md:text-5xl ${accentTextClass}`}>{course.price}</p>
                 </div>
                 <Button onClick={() => navigate("/level-test-intro")} className={`group/button min-h-[52px] w-full gap-2 rounded-[1rem] px-5 py-2.5 text-white sm:w-auto ${buttonClass}`}>
-                  Записаться
+                  {t.signUp}
                   <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/button:translate-x-1" />
                 </Button>
               </div>

@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import { Check } from "lucide-react";
 import { useMemo, useState } from "react";
+import { useLanguage } from "@/lib/i18n";
 
 type TestQuestion = {
   id: number;
@@ -67,6 +68,7 @@ const questions: TestQuestion[] = [
 ];
 
 const LevelTest = () => {
+  const { t } = useLanguage();
   const [inputs, setInputs] = useState<string[][]>(() => questions.map((q) => q.answers.map(() => "")));
   const [confirmedQuestions, setConfirmedQuestions] = useState<boolean[]>(() => questions.map(() => false));
   const [questionErrors, setQuestionErrors] = useState<string[]>(() => questions.map(() => ""));
@@ -119,7 +121,7 @@ const LevelTest = () => {
     if (!isFilled) {
       setQuestionErrors((prev) => {
         const next = [...prev];
-        next[questionIndex] = "Заполните все пропуски перед подтверждением.";
+        next[questionIndex] = t.levelTest.fillError;
         return next;
       });
       return;
@@ -177,13 +179,13 @@ const LevelTest = () => {
 
       if (!response.ok) {
         const text = await response.text();
-        throw new Error(text || "Не удалось отправить заявку");
+        throw new Error(text || t.levelTest.error);
       }
 
       setSendStatus("success");
     } catch (error) {
       setSendStatus("error");
-      setSendError(error instanceof Error ? error.message : "Ошибка отправки");
+      setSendError(error instanceof Error ? error.message : t.levelTest.sendError);
     } finally {
       setIsSending(false);
     }
@@ -197,16 +199,16 @@ const LevelTest = () => {
         <section className="mx-auto max-w-4xl">
           <div className="rounded-[1.75rem] bg-[hsl(71_33%_23%)] px-5 py-7 text-background shadow-[10px_10px_0_hsl(0_82%_18%/0.14)] md:rounded-[2rem] md:px-10 md:py-10">
             <p className="font-montserrat text-sm uppercase tracking-[0.16em] text-background/80 md:text-base">
-              тест уровня
+              {t.levelTest.badge}
             </p>
-            <h1 className="mt-3 font-main text-[clamp(2.7rem,12vw,4.6rem)] font-bold leading-[0.9] tracking-[-0.04em] md:text-7xl">заполните пропуски</h1>
+            <h1 className="mt-3 font-main text-[clamp(2.7rem,12vw,4.6rem)] font-bold leading-[0.9] tracking-[-0.04em] md:text-7xl">{t.levelTest.title}</h1>
           </div>
 
           <div className="mt-6 space-y-4 md:mt-8 md:space-y-5">
             {questions.slice(0, unlockedQuestions).map((question, questionIndex) => (
               <article key={question.id} className="rounded-[1.5rem] border-2 border-foreground/15 bg-background p-4 shadow-[6px_6px_0_hsl(71_33%_23%/0.08)] md:p-6">
                 <p className="font-montserrat text-xs uppercase tracking-[0.14em] text-foreground/55">
-                  вопрос {question.id}
+                  {t.levelTest.question} {question.id}
                 </p>
                 <p className="mt-2 font-montserrat text-base font-semibold leading-snug text-foreground md:text-lg">
                   {question.russian}
@@ -222,7 +224,7 @@ const LevelTest = () => {
                           disabled={confirmedQuestions[questionIndex]}
                           onChange={(event) => onChangeAnswer(questionIndex, answerIndex, event.target.value)}
                           className="h-11 w-[96px] rounded-none border-2 border-foreground/25 bg-background px-2 text-center font-montserrat text-base font-semibold text-foreground outline-none transition-colors focus:border-[hsl(0_82%_18%)] disabled:cursor-not-allowed disabled:border-foreground/15 disabled:bg-foreground/10 disabled:text-foreground/65 md:h-12 md:w-[140px] md:px-3 md:text-lg"
-                          aria-label={`Ответ ${answerIndex + 1} для вопроса ${question.id}`}
+                          aria-label={`${t.levelTest.question} ${question.id} - ${t.levelTest.confirm}`}
                         />
                       </div>
                     ))}
@@ -238,11 +240,11 @@ const LevelTest = () => {
                       className="inline-flex min-h-[50px] w-full items-center justify-center gap-2 rounded-[1rem] border-2 border-[hsl(71_33%_23%)] bg-[hsl(71_33%_23%)] px-4 py-3 font-montserrat text-sm font-semibold uppercase tracking-[0.08em] text-background transition-colors active:opacity-80 md:min-h-0 md:w-auto md:py-2 md:text-sm"
                     >
                       <Check className="h-4 w-4" />
-                      подтвердить
+                      {t.levelTest.confirm}
                     </button>
                   ) : (
                     <p className="font-montserrat text-xs uppercase tracking-[0.08em] text-[hsl(71_33%_23%)] md:text-sm">
-                      ответ подтвержден
+                      {t.levelTest.confirmed}
                     </p>
                   )}
 
@@ -255,7 +257,7 @@ const LevelTest = () => {
 
                 {submitted && (
                   <p className="mt-3 font-montserrat text-sm text-foreground/75">
-                    Правильный ответ: {question.answers.join(", ")}
+                    {t.levelTest.correctAnswer}: {question.answers.join(", ")}
                   </p>
                 )}
               </article>
@@ -264,7 +266,7 @@ const LevelTest = () => {
 
           {!allQuestionsConfirmed && (
             <p className="mt-5 font-montserrat text-sm text-foreground/65 md:mt-6">
-              Ответьте на текущий вопрос и нажмите на галочку, чтобы открыть следующий. Если не знаете, напишите что хотите.
+              {t.levelTest.helperText}
             </p>
           )}
 
@@ -278,12 +280,12 @@ const LevelTest = () => {
                 }}
                 className="inline-flex min-h-[56px] w-full items-center justify-center rounded-[1.1rem] border-2 border-[hsl(71_33%_23%)] bg-[hsl(71_33%_23%)] px-8 py-4 font-montserrat text-base font-semibold uppercase tracking-[0.08em] text-background transition-colors active:opacity-80 md:w-auto"
               >
-                проверить
+                {t.levelTest.check}
               </button>
 
               {submitted && (
                 <p className="font-main text-3xl text-[hsl(0_82%_18%)] md:text-4xl">
-                  результат: {score.ok}/{score.total}
+                  {t.levelTest.result}: {score.ok}/{score.total}
                 </p>
               )}
             </div>
@@ -295,7 +297,7 @@ const LevelTest = () => {
               onClick={() => setIsLeadModalOpen(true)}
               className="mt-4 inline-flex min-h-[56px] w-full items-center justify-center rounded-[1.1rem] border-2 border-[hsl(0_82%_18%)] bg-[hsl(0_82%_18%)] px-7 py-4 font-montserrat text-sm font-semibold uppercase tracking-[0.08em] text-background transition-colors active:opacity-80 md:mt-6 md:w-auto"
             >
-              отправить результат нам
+              {t.levelTest.sendResult}
             </button>
           )}
         </section>
@@ -307,20 +309,20 @@ const LevelTest = () => {
             <div className="flex items-start justify-between gap-3">
               <div className="min-w-0">
                 <h2 className="font-main text-[2rem] font-bold leading-[0.9] text-foreground sm:text-[2.35rem] md:text-5xl">
-                  отправить результат нам
+                  {t.levelTest.modalTitle}
                 </h2>
                 <p className="mt-3 max-w-2xl font-montserrat text-[0.92rem] leading-snug text-foreground/75 sm:text-sm md:text-base">
-                  Оставьте контакт, отправьте результаты и мы свяжемся с Вами.
+                  {t.levelTest.modalDesc}
                 </p>
                 <p className="mt-3 inline-flex items-center border border-[hsl(0_82%_18%/0.3)] bg-[hsl(0_82%_18%/0.06)] px-3 py-1 font-montserrat text-sm font-semibold uppercase tracking-[0.08em] text-[hsl(0_82%_18%)]">
-                  результат: {score.ok}/{score.total}
+                  {t.levelTest.modalResult}: {score.ok}/{score.total}
                 </p>
               </div>
               <button
                 type="button"
                 onClick={() => setIsLeadModalOpen(false)}
                 className="inline-flex h-10 w-10 shrink-0 items-center justify-center border border-foreground/30 font-montserrat text-xl text-foreground/70 transition-colors hover:bg-foreground hover:text-background"
-                aria-label="Закрыть"
+                aria-label={t.levelTest.close}
               >
                 ×
               </button>
@@ -331,15 +333,15 @@ const LevelTest = () => {
                 value={studentName}
                 onChange={(event) => setStudentName(event.target.value)}
                 className="h-12 w-full rounded-none border-2 border-foreground/30 bg-background px-3 font-montserrat text-base text-foreground outline-none transition-colors focus:border-[hsl(0_82%_18%)]"
-                placeholder="Имя"
-                aria-label="Имя"
+                placeholder={t.levelTest.namePlaceholder}
+                aria-label={t.levelTest.namePlaceholder}
               />
               <input
                 value={phoneOrTelegram}
                 onChange={(event) => setPhoneOrTelegram(event.target.value)}
                 className="h-12 w-full rounded-none border-2 border-foreground/30 bg-background px-3 font-montserrat text-base text-foreground outline-none transition-colors focus:border-[hsl(0_82%_18%)]"
-                placeholder="Телефон или Telegram"
-                aria-label="Телефон или Telegram"
+                placeholder={t.levelTest.contactPlaceholder}
+                aria-label={t.levelTest.contactPlaceholder}
               />
             </div>
 
@@ -354,21 +356,21 @@ const LevelTest = () => {
                     : "cursor-not-allowed border-foreground/30 bg-foreground/15 text-foreground/50"
                 }`}
               >
-                {isSending ? "отправка..." : "отправить результат"}
+                {isSending ? t.levelTest.submitting : t.levelTest.submit}
               </button>
               {!canSendResults && (
                 <p className="font-montserrat text-sm text-foreground/65">
-                  Укажите хотя бы один контакт для отправки.
+                  {t.levelTest.contactHint}
                 </p>
               )}
               {sendStatus === "success" && (
                 <p className="font-montserrat text-sm text-[hsl(71_33%_23%)]">
-                  Заявка отправлена. Мы свяжемся с вами и подберем группу.
+                  {t.levelTest.success}
                 </p>
               )}
               {sendStatus === "error" && (
                 <p className="font-montserrat text-sm text-[hsl(0_82%_18%)]">
-                  Не удалось отправить заявку: {sendError}
+                  {t.levelTest.error}: {sendError}
                 </p>
               )}
             </div>

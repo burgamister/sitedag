@@ -6,19 +6,7 @@ import markerStrokeRed from "@/assets/marker-stroke-red.webp";
 import markerStroke from "@/assets/marker-stroke.webp";
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-
-const whyDagEnglishItems = [
-  {
-    id: "01",
-    title: "атмосфера как дома",
-    text: "У нас на уроках ты чувствуешь себя как дома. Можем чай попить, фильмы посмотреть. Главное много не наглеть!",
-  },
-  {
-    id: "02",
-    title: "упор на практику",
-    text: "Уроки проводятся на английском языке, чтоб вы привыкали к языку. Не переживайте спрашивать учителя, если не понимаете о чем идет речь.",
-  },
-];
+import { useLanguage } from "@/lib/i18n";
 
 const createLessonMarkerStyle = (markerUrl: string) => ({
   backgroundImage: `url(${markerUrl})`,
@@ -41,6 +29,7 @@ const individualLessonTextClassName =
 const Home = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { t } = useLanguage();
 
   useEffect(() => {
     if (location.hash !== "#level-test-cta" && location.hash !== "#prices") {
@@ -78,15 +67,15 @@ const Home = () => {
           <button
             type="button"
             onClick={() => navigate("/level-test-intro")}
-            aria-label="хочу научиться говорить по-английски, нажми"
+            aria-label={`${t.hero.cta} ${t.hero.ctaBlock}`}
             className="mt-3 inline-flex w-full max-w-[42rem] flex-col items-center justify-center gap-0.75 px-4 font-montserrat text-[clamp(0.9rem,2.35vw,1.55rem)] font-semibold lowercase leading-[1.02] tracking-normal text-foreground transition-colors duration-150 hover:text-[hsl(0_82%_18%)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-4 focus-visible:ring-offset-background sm:mt-4"
           >
             <span className="text-center text-balance">
-              хочу научиться
-              <span className="block">говорить по-английски</span>
+              {t.hero.cta}
+              <span className="block">{t.hero.ctaBlock}</span>
             </span>
             <span className="font-montserrat text-[0.72rem] font-medium lowercase tracking-[0.16em] text-foreground/60 sm:text-xs">
-              [нажми]
+              {t.hero.click}
             </span>
           </button>
         </div>
@@ -96,12 +85,12 @@ const Home = () => {
         <div className="mx-auto w-full max-w-[1600px] text-center">
           <div className="mx-auto max-w-[1400px]">
             <h2 className="font-main text-[clamp(2.4rem,6vw,7.2rem)] font-bold leading-[1.07] tracking-[-0.05em] text-foreground">
-              <span className="font-handwrite font-bold text-[hsl(0_82%_18%)]">Дагинглиш</span> - английский
-              <span className="block"> легко и с юмором</span>
+              <span className="font-handwrite font-bold text-[hsl(0_82%_18%)]">{t.about.titleStart}</span> {t.about.titleHighlight}
+              <span className="block"> {t.about.titleEnd}</span>
             </h2>
 
             <p className="mx-auto mt-8 max-w-[980px] font-montserrat text-[clamp(1.1rem,1.9vw,2.4rem)] leading-[1.4] text-foreground/75">
-              Уютные уроки с живой практикой, удобным расписанием и теплой поддержкой преподавателя.
+              {t.about.desc}
             </p>
 
             <button
@@ -109,7 +98,7 @@ const Home = () => {
               onClick={() => navigate("/level-test-intro")}
               className="mt-8 inline-flex w-full max-w-[760px] items-center justify-center rounded-[3rem] bg-[hsl(0_82%_18%)] px-8 py-5 md:py-7 font-montserrat text-[clamp(1rem,1.6vw,2rem)] font-medium uppercase tracking-[0.06em] text-background active:scale-[0.98] transition-transform"
             >
-              записаться
+              {t.about.cta}
             </button>
           </div>
         </div>
@@ -119,55 +108,61 @@ const Home = () => {
         <div className="mx-auto max-w-6xl">
           <div className="mx-auto mb-12 max-w-4xl text-center md:mb-16">
             <h2 className="font-main text-[clamp(3.4rem,10vw,8rem)] font-bold leading-[0.82] tracking-[-0.05em] text-foreground">
-              почему
-              <span className="block font-handwrite text-[hsl(0_82%_18%)]">Дагинглиш?</span>
+              {t.whyUs.title}
+              <span className="block font-handwrite text-[hsl(0_82%_18%)]">{t.whyUs.titleHighlight}</span>
             </h2>
           </div>
 
           <div className="relative mx-auto flex max-w-5xl flex-col gap-8 md:min-h-[600px] md:gap-0">
-            {/* Card 01 — light */}
-            <article className="relative overflow-hidden rounded-[1.75rem] border border-foreground/15 bg-background md:mb-16 md:w-[58%] md:rounded-[2rem]">
-              <span
-                aria-hidden="true"
-                className="pointer-events-none absolute right-4 top-2 select-none font-main text-[clamp(6rem,16vw,12rem)] font-bold leading-none text-foreground/[0.04]"
-              >
-                01
-              </span>
-              <div className="relative z-10 p-6 md:p-10">
-                <div>
-                  <h3 className="font-main text-[clamp(2.2rem,5vw,4.4rem)] font-bold leading-[0.86] tracking-tight text-foreground">
-                    атмосфера<br />как дома
-                  </h3>
-                </div>
-                <div className="mt-10 max-w-md md:mt-16">
-                  <p className="font-montserrat text-sm leading-[1.7] text-foreground/65 md:text-base md:leading-[1.65]">
-                    У нас на уроках Вы чувствуете себя как дома. Можем чай попить, фильмы посмотерть. Главное много не наглеть!
-                  </p>
-                </div>
-              </div>
-            </article>
-
-            {/* Card 02 — dark */}
-            <article className="relative overflow-hidden rounded-[1.75rem] bg-[hsl(71_33%_23%)] md:absolute md:bottom-0 md:right-0 md:w-[58%] md:rounded-[2rem]">
-              <span
-                aria-hidden="true"
-                className="pointer-events-none absolute left-4 top-2 select-none font-main text-[clamp(6rem,16vw,12rem)] font-bold leading-none text-background/[0.06]"
-              >
-                02
-              </span>
-              <div className="relative z-10 p-6 md:p-10">
-                <div>
-                  <h3 className="font-main text-[clamp(2.2rem,5vw,4.4rem)] font-bold leading-[0.86] tracking-tight text-background md:text-right">
-                    упор на<br />практику
-                  </h3>
-                </div>
-                <div className="mt-10 max-w-md md:ml-auto md:mt-16">
-                  <p className="font-montserrat text-sm leading-[1.7] text-background/65 md:text-base md:leading-[1.65] md:text-right">
-                    Уроки проводятся на английском языке, чтоб Вы привыкали к языку. Если не понимаете о чем речь - смело спрашивайте у учителя.
-                  </p>
-                </div>
-              </div>
-            </article>
+            {t.whyUs.cards.map((card, index) => {
+              const isFirst = index === 0;
+              return (
+                <article
+                  key={index}
+                  className={`relative overflow-hidden rounded-[1.75rem] ${
+                    isFirst
+                      ? "border border-foreground/15 bg-background md:mb-16 md:w-[58%] md:rounded-[2rem]"
+                      : "bg-[hsl(71_33%_23%)] md:absolute md:bottom-0 md:right-0 md:w-[58%] md:rounded-[2rem]"
+                  }`}
+                >
+                  <span
+                    aria-hidden="true"
+                    className={`pointer-events-none absolute select-none font-main text-[clamp(6rem,16vw,12rem)] font-bold leading-none ${
+                      isFirst
+                        ? "right-4 top-2 text-foreground/[0.04]"
+                        : "left-4 top-2 text-background/[0.06]"
+                    }`}
+                  >
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <div className="relative z-10 p-6 md:p-10">
+                    <div>
+                      <h3
+                        className={`font-main text-[clamp(2.2rem,5vw,4.4rem)] font-bold leading-[0.86] tracking-tight ${
+                          isFirst ? "text-foreground" : "text-background md:text-right"
+                        }`}
+                      >
+                        {card.title.split("\n").map((line, i) => (
+                          <span key={i}>
+                            {i > 0 && <br />}
+                            {line}
+                          </span>
+                        ))}
+                      </h3>
+                    </div>
+                    <div className={`mt-10 max-w-md ${isFirst ? "" : "md:ml-auto"} md:mt-16`}>
+                      <p
+                        className={`font-montserrat text-sm leading-[1.7] md:text-base md:leading-[1.65] ${
+                          isFirst ? "text-foreground/65" : "text-background/65 md:text-right"
+                        }`}
+                      >
+                        {card.text}
+                      </p>
+                    </div>
+                  </div>
+                </article>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -175,7 +170,7 @@ const Home = () => {
       <section id="prices" className="relative bg-background px-4 py-12 md:px-6 md:py-20">
         <div className="container relative z-10 mx-auto max-w-6xl">
           <div className="mb-12 text-center md:mb-16">
-            <p className="font-montserrat text-4xl font-bold tracking-tight text-foreground md:text-6xl">Занятия</p>
+            <p className="font-montserrat text-4xl font-bold tracking-tight text-foreground md:text-6xl">{t.prices.title}</p>
           </div>
 
           <div className="flex flex-col gap-5 md:hidden">
@@ -183,19 +178,19 @@ const Home = () => {
               type="button"
               onClick={() => navigate("/courses")}
               className="group relative flex min-h-[112px] w-full items-center justify-center overflow-hidden px-4 py-5 text-center active:scale-[0.99] transition-transform sm:min-h-[120px] sm:py-6"
-              aria-label="индивидуально"
+              aria-label={t.prices.individual}
               style={loweredIndividualLessonMarkerStyle}
             >
-              <span className={individualLessonTextClassName}>индивидуально</span>
+              <span className={individualLessonTextClassName}>{t.prices.individual}</span>
             </button>
             <button
               type="button"
               onClick={() => navigate("/courses")}
               className="group relative flex min-h-[112px] w-full items-center justify-center overflow-hidden px-4 py-5 text-center active:scale-[0.99] transition-transform sm:min-h-[120px] sm:py-6"
-              aria-label="группа"
+              aria-label={t.prices.group}
               style={groupLessonMarkerStyle}
             >
-              <span className={lessonTextClassName}>группа</span>
+              <span className={lessonTextClassName}>{t.prices.group}</span>
             </button>
           </div>
 
@@ -204,20 +199,20 @@ const Home = () => {
               type="button"
               onClick={() => navigate("/courses")}
               className="group relative flex min-h-[152px] w-full items-center justify-center overflow-hidden px-6 py-7 text-center active:scale-[0.99] transition-transform lg:min-h-[180px] lg:px-8 lg:py-8"
-              aria-label="индивидуально"
+              aria-label={t.prices.individual}
               style={loweredIndividualLessonMarkerStyle}
             >
-              <span className={individualLessonTextClassName}>индивидуально</span>
+              <span className={individualLessonTextClassName}>{t.prices.individual}</span>
             </button>
 
             <button
               type="button"
               onClick={() => navigate("/courses")}
               className="group relative flex min-h-[152px] w-full items-center justify-center overflow-hidden px-6 py-7 text-center active:scale-[0.99] transition-transform lg:min-h-[180px] lg:px-8 lg:py-8"
-              aria-label="группа"
+              aria-label={t.prices.group}
               style={groupLessonMarkerStyle}
             >
-              <span className={lessonTextClassName}>группа</span>
+              <span className={lessonTextClassName}>{t.prices.group}</span>
             </button>
           </div>
         </div>

@@ -4,6 +4,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useLanguage } from "@/lib/i18n";
 
 type NavItem = {
   label: string;
@@ -14,6 +15,7 @@ type NavItem = {
 const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { t, toggleLanguage } = useLanguage();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -43,15 +45,15 @@ const Header = () => {
 
   const navItems: NavItem[] = [
     {
-      label: "О НАС",
+      label: t.header.navAbout,
       href: "/"
     },
     {
-      label: "ОБУЧЕНИЕ",
+      label: t.header.navLearning,
       onClick: goToPrices
     },
     {
-      label: "КОНТАКТЫ",
+      label: t.header.navContacts,
       href: "/contacts"
     }
   ];
@@ -111,8 +113,13 @@ const Header = () => {
 
           {/* Right Section */}
           <div className="flex items-center gap-4">
-            <Button variant="ghost" size="sm" className="font-montserrat text-sm font-medium uppercase hidden sm:flex">
-              EN
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={toggleLanguage}
+              className="font-montserrat text-sm font-medium uppercase hidden sm:flex"
+            >
+              {t.header.langToggle}
             </Button>
 
             {/* Mobile Menu Trigger */}
@@ -162,8 +169,12 @@ const Header = () => {
                     );
                   })}
                   <div className="pt-4">
-                    <Button variant="ghost" className="font-montserrat text-sm font-medium uppercase w-full justify-start h-12">
-                      EN
+                    <Button
+                      variant="ghost"
+                      onClick={toggleLanguage}
+                      className="font-montserrat text-sm font-medium uppercase w-full justify-start h-12"
+                    >
+                      {t.header.langToggle}
                     </Button>
                   </div>
                 </nav>
